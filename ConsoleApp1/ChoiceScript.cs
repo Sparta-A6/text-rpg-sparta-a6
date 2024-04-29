@@ -27,6 +27,8 @@ namespace TestRpgGame
         string[] DungeonInChoice = { " 던전 안으로 들어간다... " };
         string[] DungeonOutChoice = { " 던전 밖으로 나간다... " };
 
+        string[] BattleSceneChoice = { "공격하기", "아이템 사용하기" };
+
         public void VillageScript()
         {
             for (int i = 0; i < VillageChoice.Length; i++)
@@ -122,6 +124,14 @@ namespace TestRpgGame
             {
                 Console.Write("\n " + (i + 1) + ". ");
                 Console.WriteLine($"{DungeonOutChoice[i]}");
+            }
+        }
+        public void BattleSceneScript()
+        {
+            for(int i = 0;i < BattleSceneChoice.Length; i++)
+            {
+                Console.Write("\n " + (i + 1) + ". ");
+                Console.WriteLine($"{BattleSceneChoice[i]}");
             }
         }
     }

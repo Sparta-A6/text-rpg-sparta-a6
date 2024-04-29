@@ -131,7 +131,11 @@ namespace TestRpgGame
             Console.WriteLine(" 던전 클리어! \n");
         }
 
-
+        public void BattleSceneScript()
+        {
+            Console.WriteLine("근처를 둘러보다 좀비들에게 발각되었습니다!!");
+            Console.WriteLine("좀비와의 전투에 돌입합니다.");
+        }
 
 
         //플레이어 정보 공개
@@ -154,8 +158,9 @@ namespace TestRpgGame
             Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
 
             Console.WriteLine(" 공격력 : " + Player.attack);
-            Console.WriteLine(" 방어력 : " + Player.defense + "\n");
-            
+            Console.WriteLine(" 방어력 : " + Player.defense + "\n");            
         }
+
+       
     }
 }

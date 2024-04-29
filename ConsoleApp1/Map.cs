@@ -138,6 +138,13 @@ namespace TestRpgGame
                     LimitLine();
                     choiceScript.DungeonOutScript();
                     break;
+
+                case 26: //전투 화면으로
+                    defaultScript.BattleSceneScript();
+                    LimitLine();
+                    choiceScript.BattleSceneScript();
+                    break;
+
             }
         }
 

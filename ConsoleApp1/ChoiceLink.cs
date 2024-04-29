@@ -31,6 +31,9 @@ namespace TestRpgGame
                 case 12:
                     map12Choice(mapNumber, isCan, playerChoice, ScriptCount);
                     break;
+                case 22:
+                    map22Choice(mapNumber, isCan, playerChoice, ScriptCount);
+                    break;
 
                 case 3:
                     map3Choice(mapNumber, isCan, playerChoice, ScriptCount);
@@ -152,6 +155,11 @@ namespace TestRpgGame
                         MainGame.mapNum = 12;
                         break;
 
+                    case 3:
+                        //플레이어 인포
+                        MainGame.mapNum = 22;
+                        break;
+
                     default:
                         MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
                         break;
@@ -176,8 +184,78 @@ namespace TestRpgGame
                         break;
 
                     case 1:
-                        Console.WriteLine(ScriptCount);
-                        Console.ReadLine();
+                        if (ScriptCount >= 1)
+                            Item.ItemTakeInTrue(1);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 2:
+                        if (ScriptCount >= 2)
+                            Item.ItemTakeInTrue(2);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 3:
+                        if (ScriptCount >= 3) 
+                            Item.ItemTakeInTrue(3);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 4:
+                        if (ScriptCount >= 4)
+                            Item.ItemTakeInTrue(4);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 5:
+                        if (ScriptCount >= 5)
+                            Item.ItemTakeInTrue(5);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 6:
+                        if (ScriptCount >= 6)
+                            Item.ItemTakeInTrue(6);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 7:
+                        if (ScriptCount >= 7)
+                            Item.ItemTakeInTrue(7);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    case 8:
+                        if (ScriptCount>=8)
+                            Item.ItemTakeInTrue(8);
+                        else MainGame.instructionNum = 1;
+                        break;
+
+                    default:
+                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+                        break;
+                }
+            }
+            else
+            {
+                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            }
+        }
+
+        void map22Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
+        {
+
+            if (isCan)
+            {
+                MainGame.instructionNum = 0;
+                switch (playerChoice)
+                {
+                    case 0:
+                        //플레이어 인포
+                        MainGame.mapNum = 2;
+                        break;
+
+                    case 1:
                         if (ScriptCount >= 1)
                             Item.ItemTakeInTrue(1);
                         else MainGame.instructionNum = 1;
@@ -220,7 +298,7 @@ namespace TestRpgGame
                         break;
 
                     case 8:
-                        if (ScriptCount>=8)
+                        if (ScriptCount >= 8)
                             Item.ItemTakeInTrue(8);
                         else MainGame.instructionNum = 1;
                         break;

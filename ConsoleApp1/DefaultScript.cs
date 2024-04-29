@@ -59,6 +59,10 @@ namespace TestRpgGame
             Console.WriteLine(" 아이템을 선택해서 장착하거나 장착해제할 수 있습니다.\n");
             Console.WriteLine(" [ 아이템 관리 모드 ]\n");
         }
+        public void ItemUseScript()
+        {
+            Console.WriteLine(" 사용할 아이템을 선택해주십시오.\n");
+        }
         public void ShopBuyScript()
         {
             if (IsCanBuy == true)

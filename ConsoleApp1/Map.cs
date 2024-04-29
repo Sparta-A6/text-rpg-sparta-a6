@@ -16,6 +16,7 @@ namespace TestRpgGame
         Inn = 4,
         Dungeon = 5,
         InvenItem = 12,
+        ItemUse = 22,
         ShopBuy = 13,
         ShopSell = 23,
         InnRest = 14,
@@ -82,6 +83,13 @@ namespace TestRpgGame
 
                 case 12: // 아이템 장착
                     defaultScript.InvenItemScript(); // 소유한 아이템
+                    ScriptCount = item.AllItemInHaveScript(choice); // 값 반환 (Case Break용)
+                    LimitLine();
+                    choiceScript.InvenItemScript();
+                    break;
+
+                case 22: // 아이템 사용
+                    defaultScript.ItemUseScript(); // 사용할 아이템
                     ScriptCount = item.AllItemInHaveScript(choice); // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.InvenItemScript();

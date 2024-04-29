@@ -9,7 +9,8 @@ namespace TestRpgGame
 {
     internal class Item
     {
-        public static List<Item> items = new List<Item>(); // 리스트 선언
+        public static List<Item> items = new List<Item>();  // 기본 무기 아이템
+        public static List<Item> DpItem = new List<Item>();  // 방어 아이템
 
 
         public Item(string name, String desc, bool isHave, bool isTake, int adstat, int dpstat, int price, int idx)
@@ -32,25 +33,43 @@ namespace TestRpgGame
         public int Price { get; }
         public int IDX { get; set; }
 
-        string[] itemname = { "롱소드", "천 갑옷", "열정의 검", "쇠사슬 조끼", "얼어붙은 심장", "정령의 형상", "마나무네", "고속 연사포" };
-        string[] itemdesc = { 
-            "기본에 충실한 무기입니다.", 
-            "기본에 충실한 방어구입니다.", 
-            "두개의 검이 위협적으로 빛납니다.", 
-            "사슬로 만들어져 더욱 단단합니다.",
-            "차가운 마나의 기운이 몸을 더 단단하게 만듭니다.",
-            "갑옷 주위를 푸른 정령이 감싸고 있습니다.",
-            "마나의 흐름이 느껴집니다.",
-            "더 멀리 공격할 수 있습니다." };
+        // 무기 아이템
 
-        bool[] itemishave = { false, false, false, false, false, false, false, false };
-        bool[] itemistake = { false, false, false, false, false, false, false, false };
+        string[] itemname = { "장갑", "목검", "후라이팬", "야구배트", "빠루", "식칼", "나이프", "소방도끼" };
+        string[] itemdesc = {
+            "맨주먹보단 낫습니다.",
+            "무언가를 썰기보단 때리는 용도입니다.",
+            "단단합니다.",
+            "깡!",
+            "어디서든 사용할 수 있습니다.",
+            "무언가를 토막내기에는 이만한 것이 없습니다.",
+            "가볍고, 날카로우며, 빠릅니다.",
+            "빨간 날 위로 끈적한 것이 묻어있습니다." };
 
-        int[] itemadstat = { 10, 0, 15, 5, 15, 5, 30, 35 };
-        int[] itemdpstat = { 0, 15, 5, 25, 35, 45, 10, 5 };
+        bool[] itemishave = { true, false, false, false, false, false, false, false };
+        bool[] itemistake = { true, false, false, false, false, false, false, false };
 
-        int[] itemprice = { 800, 800, 1100, 1300, 2700, 2800, 2600, 2800 };
+        int[] itemadstat = { 10, 15, 15, 15, 20, 25, 25, 30 };
+        int[] itemdpstat = { 0, 0, 0, 0, 0, 0, 0, 0 };
+
+        int[] itemprice = { 500, 1000, 1200, 1000, 1500, 2000, 2000, 2500 };
         int[] itemidx = { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+     
+
 
 
 
@@ -58,7 +77,7 @@ namespace TestRpgGame
         {
             foreach (Item item in items)
             {
-                if ((choice == item.IDX) && (Player.gold>=item.Price) && (mapNum==13) ) // 구매할 경우
+                if ((choice == item.IDX) && (Player.gold >= item.Price) && (mapNum == 13)) // 구매할 경우
                 {
                     item.IsHave = !item.IsHave;
                     Player.gold -= item.Price;
@@ -93,29 +112,33 @@ namespace TestRpgGame
                 }
             }
         }
-        public int AllItemInShopScript(int mapNum) // 상점 아이템 스크립트 제작
+        public int AllItemInShopScript(int mapNum) // 상점 장비 아이템 스크립트 제작
         {
             if (mapNum == 23) // 아이템 판매 페이지
             {
                 AllItemInHaveScript(mapNum);
                 return 0;
             }
-            
+
             if (mapNum == 13) // 아이템 구매 페이지
             {
-                
+
                 int count = 1;
                 foreach (Item item in items)
                 {
                     if (item.IsHave == false)
                     {
                         item.IDX = count;
-                        Console.WriteLine(" " + count + ". " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + "\t | " + item.Price + "G\n");
+                        Console.Write(" " + count + ". ");  // 번호
+                        Console.Write(item.Name);  // 이름
+                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
+                        ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
                         count++;
                     }
                     else item.IDX = 0;
                 }
-                return count-1;
+                return count - 1;
             }
             else  // 상점 페이지
             {
@@ -123,10 +146,17 @@ namespace TestRpgGame
                 foreach (Item item in items)
                 {
                     item.IDX = count;
+                    Console.Write("  - " + item.Name);  // 이름
+                    ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                     if (item.IsHave == true)
-                        Console.WriteLine(" - " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + "\t | " + "구매완료\n" );
+                    {
+                        ColorChange.ColorWriteLine(8, "구매완료\n"); // 구매완료
+                    }
                     else
-                        Console.WriteLine(" - " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + "\t | " + item.Price + "G\n");
+                    {
+                        ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
+                    }
                     count++;
                 }
                 return 0;
@@ -134,23 +164,24 @@ namespace TestRpgGame
 
 
         }
-        public void AllItemInShopList()
+
+        public int AllItemInHaveScript(int mapNum) //  소유한 장비 아이템 스크립트 제작
         {
-            for (int i = 0; i < itemname.Length; i++)
-            {
-                items.Add(new Item(itemname[i], itemdesc[i], itemishave[i], itemistake[i], itemadstat[i], itemdpstat[i], itemprice[i], itemidx[i]));
-            }
-        } // 초기설정 : 모든 아이템 상점 리스트에 집어넣기
-        public int AllItemInHaveScript(int mapNum) //  소유한 아이템 스크립트 제작
-        {
+            Console.WriteLine(" [ 무기 아이템 ]\n");
+
             if (mapNum == 2) // 인벤토리 페이지
             {
                 int count = 1;
-                foreach (Item item in items) 
+                foreach (Item item in items)
                 {
                     item.IDX = count;
                     // 가지고 있는 아이템만 생성
-                    if (item.IsHave == true) { Console.WriteLine(" - " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + "  | \n"); }
+                    if (item.IsHave == true) 
+                    {
+                        Console.Write("  - " + item.Name);  // 이름
+                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        Console.WriteLine(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | \n");  // 상세 정보
+                    }
                     count++;
                 }
                 return 0;
@@ -158,15 +189,30 @@ namespace TestRpgGame
             else if (mapNum == 12) // 인벤토리 장착 페이지
             {
                 int count = 1;
-                foreach (Item item in items) 
+                foreach (Item item in items)
                 {
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
                     {
                         item.IDX = count;
+
+                        Console.Write(" " + count + ". ");
+
                         if (item.IsTake == true) // 아이템을 착용하고 있다면 E 표시
-                            Console.WriteLine(count + ". " + " [E] " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat +"\n");
+                        {
+                            ColorChange.ColorWrite(10, item.Name);  // 이름
+                            ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            Console.Write(item.Desc);
+                            ColorChange.ColorWrite(10, " [E] ");
+                        }
                         else
-                            Console.WriteLine(count + ". " + "     " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat +"\n");
+                        {
+                            Console.Write(item.Name);  // 이름
+                            ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            Console.Write(item.Desc);
+                            Console.Write("     ");
+                        }
+
+                        Console.WriteLine("\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | \n");  // 상세 정보
                         count++;
                     }
                 }
@@ -175,12 +221,17 @@ namespace TestRpgGame
             else // 상점 판매 페이지
             {
                 int count = 1;
-                foreach (Item item in items) 
+                foreach (Item item in items)
                 {
                     item.IDX = count;
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
                     {
-                        Console.WriteLine(count + ". " + item.Name + "  | " + item.Desc + "\n\t\t | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat +  "  | " + (item.Price/100*85) +"G (85%)\n" );
+                        item.IDX = count;
+                        Console.Write(" " + count + ". ");  // 번호
+                        Console.Write(item.Name);  // 이름
+                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
+                        ColorChange.ColorWriteLine(12, (item.Price / 100 * 85) + "G (85%)\n"); // 가격 + 색상 함수
                         count++;
                     }
                     else item.IDX = 0;
@@ -188,5 +239,39 @@ namespace TestRpgGame
                 return count - 1;
             }
         }
+        void ItemSort(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    Console.Write("        | ");
+                    break;
+                case 2:
+                    Console.Write("       | ");
+                    break;
+                case 3:
+                    Console.Write("     | ");
+                    break;
+                case 4:
+                    Console.Write("   | ");
+                    break;
+                case 5:
+                    Console.Write("  | ");
+                    break;
+                case 6:
+                    Console.Write(" | ");
+                    break;
+            }
+        }
+
+
+        public void AllItemInShopList()
+        {
+            for (int i = 0; i < itemname.Length; i++) // 무기 아이템
+            {
+                items.Add(new Item(itemname[i], itemdesc[i], itemishave[i], itemistake[i], itemadstat[i], itemdpstat[i], itemprice[i], itemidx[i]));
+            }
+
+        } // 초기설정 : 모든 아이템 상점 리스트에 집어넣기
     }
 }

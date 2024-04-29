@@ -19,10 +19,7 @@ namespace TestRpgGame
             enemyAttack = attack;
             enemyDefence = defence;
             enemyHealth = health;
-        }
-
-        Dictionary<string,  Enemy> enemies = new Dictionary<string, Enemy>();
-
+        }              
 
     }
 }

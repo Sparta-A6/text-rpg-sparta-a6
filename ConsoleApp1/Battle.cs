@@ -8,6 +8,11 @@ namespace TestRpgGame
 {
     internal class Battle
     {
-        
+        public Player playerStats;
+
+        public void AttackEnemy(Enemy enemy)
+        {
+                        
+        }
     }
 }

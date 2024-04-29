@@ -21,6 +21,7 @@ namespace TestRpgGame
         InnRest = 14,
         DungeonIn = 15,
         DungeonOut = 25,
+        BattleScene = 26,
     }
 
     

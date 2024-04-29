@@ -146,5 +146,16 @@ namespace TestRpgGame
 
             Console.WriteLine(" 소지금 : " + Player.gold + " G \n");
         }
+
+        public void PlayerBattleInfo()
+        {
+            Console.WriteLine(" 이름 : " + Player.playerName);
+            Console.WriteLine(" 레벨 : " + Player.level);
+            Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
+
+            Console.WriteLine(" 공격력 : " + Player.attack);
+            Console.WriteLine(" 방어력 : " + Player.defense + "\n");
+            
+        }
     }
 }

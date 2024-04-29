@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace TestRpgGame
 {
-    internal class Battle
+    internal class BattleScene
     {
         public Player playerStats;
 
-        public void AttackEnemy(Enemy enemy)
-        {
-             
-        }
+        
     }
 }

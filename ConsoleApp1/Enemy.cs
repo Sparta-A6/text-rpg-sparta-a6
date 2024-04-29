@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestRpgGame
 {
-    internal class Battle
+    internal class Enemy
     {
-        
     }
 }

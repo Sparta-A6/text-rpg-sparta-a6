@@ -58,21 +58,6 @@ namespace TestRpgGame
     
 
 
-
-
-
-
-
-
-
-
-
-
-     
-
-
-
-
         public static void ItemHaveInTrue(int choice, int mapNum) // 아이템을 구매 할 경우 True로 바꿔주는 함수
         {
             foreach (Item item in items)
@@ -239,7 +224,7 @@ namespace TestRpgGame
                 return count - 1;
             }
         }
-        void ItemSort(int i)
+        public static void ItemSort(int i)
         {
             switch (i)
             {
@@ -256,10 +241,10 @@ namespace TestRpgGame
                     Console.Write("   | ");
                     break;
                 case 5:
-                    Console.Write("  | ");
+                    Console.Write(" | ");
                     break;
                 case 6:
-                    Console.Write(" | ");
+                    Console.Write("| ");
                     break;
             }
         }

@@ -15,8 +15,14 @@ namespace TestRpgGame
         public int defense = 10;
         public int health = 100;
         public static int gold = 15000;
-
         
+
+        void PlusHp()
+        {
+
+        }
+
+
     }
 
 }

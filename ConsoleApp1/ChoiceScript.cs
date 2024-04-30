@@ -20,7 +20,7 @@ namespace TestRpgGame
         string[] DungeonChoice = { "마을로 돌아가기 (Village)", "던전으로 진입" };
         string[] PlayerInfoChoice = { "정보 그만보기 (Close)" };
 
-        string[] InvenItemChoice = { "아이템 장착관리 취소" };
+        string[] InvenItemChoice = { "인벤토리로 돌아가기" };
         string[] ShopBuyChoice = { "아이템 구매 취소" };
         string[] ShopSellChoice = { "아이템 판매 취소" };
         string[] InnRestChoice = { "마을로 돌아가기 ( Village )" };

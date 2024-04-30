@@ -257,49 +257,49 @@ namespace TestRpgGame
 
                     case 1:
                         if (ScriptCount >= 1)
-                            Item.ItemTakeInTrue(1);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 2:
                         if (ScriptCount >= 2)
-                            Item.ItemTakeInTrue(2);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 3:
                         if (ScriptCount >= 3)
-                            Item.ItemTakeInTrue(3);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 4:
                         if (ScriptCount >= 4)
-                            Item.ItemTakeInTrue(4);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 5:
                         if (ScriptCount >= 5)
-                            Item.ItemTakeInTrue(5);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 6:
                         if (ScriptCount >= 6)
-                            Item.ItemTakeInTrue(6);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 7:
                         if (ScriptCount >= 7)
-                            Item.ItemTakeInTrue(7);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 
                     case 8:
                         if (ScriptCount >= 8)
-                            Item.ItemTakeInTrue(8);
+                            UseItem.UseItemHaveCount(playerChoice);
                         else MainGame.instructionNum = 1;
                         break;
 

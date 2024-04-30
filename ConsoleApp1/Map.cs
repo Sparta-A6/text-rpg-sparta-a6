@@ -31,6 +31,7 @@ namespace TestRpgGame
         DefaultScript defaultScript = new DefaultScript();
         ChoiceScript choiceScript = new ChoiceScript();
         Item item = new Item("-", "-", false, false, 0, 0, 0, 0);
+        UseItem useItem = new UseItem("-", "-", false, 0, 0, 0, 0, 0);
 
         public int ScriptCount; //선택지 개수 줄이는 용도
 
@@ -90,7 +91,7 @@ namespace TestRpgGame
 
                 case 22: // 아이템 사용
                     defaultScript.ItemUseScript(); // 사용할 아이템
-                    ScriptCount = item.AllItemInHaveScript(choice); // 값 반환 (Case Break용)
+                    ScriptCount = useItem.UseItemInHaveScript(); // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.InvenItemScript();
                     break;
@@ -178,6 +179,7 @@ namespace TestRpgGame
         public void ItemInList()
         {
             item.AllItemInShopList();
+            useItem.UseItemInShopList();
         }
 
         //public void Count()

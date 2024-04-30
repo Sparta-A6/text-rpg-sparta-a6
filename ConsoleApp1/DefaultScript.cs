@@ -131,7 +131,7 @@ namespace TestRpgGame
             Console.WriteLine(" 던전 클리어! \n");
         }
 
-        public void BattleSceneScript()
+        public void BattleStartScript()
         {
             Console.WriteLine("근처를 둘러보다 좀비들에게 발각되었습니다!!");
             Console.WriteLine("좀비와의 전투에 돌입합니다.");
@@ -143,7 +143,7 @@ namespace TestRpgGame
         {
             Console.WriteLine(" 이름 : " + Player.playerName);
             Console.WriteLine(" 레벨 : " + Player.level);
-            Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
+            Console.WriteLine(" 현재 체력 : " + Player.currenthealth + " / 100\n");
 
             Console.WriteLine(" 공격력 : " + Player.attack);
             Console.WriteLine(" 방어력 : " + Player.defense + "\n");
@@ -155,12 +155,44 @@ namespace TestRpgGame
         {
             Console.WriteLine(" 이름 : " + Player.playerName);
             Console.WriteLine(" 레벨 : " + Player.level);
-            Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
+            Console.WriteLine(" 현재 체력 : " + Player.currenthealth + " / 100\n");
 
             Console.WriteLine(" 공격력 : " + Player.attack);
             Console.WriteLine(" 방어력 : " + Player.defense + "\n");            
         }
 
-       
+        public void EnemyfirstSpawn()
+        {
+            Console.WriteLine(" [ 적 정보 ] \n");
+            Random random = new Random();
+            int enemyCount = random.Next(1, 4);
+
+            for (int i = 0; i < enemyCount; i++)
+            {
+                int index = random.Next(0, 2);
+                string enemyName = index == 0 ? "일반 좀비" : "뚱뚱한 좀비";                
+                Enemy enemy = EnemyStats.Enemies.Find(e => e.EnemyName == enemyName);
+                Console.WriteLine($"{i+1}. {enemy.EnemyName} 체력: {enemy.CurrentenemytHealth}/{enemy.MaxenemyHealth} 공격력: {enemy.EnemyAttack} 방어력: {enemy.EnemyDefence}");
+            }
+        }
+
+        public void LookAroundScript()
+        {
+            Console.WriteLine("앞에 무언가 보이는 것 같습니다");
+            Console.WriteLine("가까이 가서 확인해 보겠습니까?");
+
+        }
+
+        public void FarmingStartScript()
+        {            
+            Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다.");
+        }
+
+        public void Battle()
+        {
+
+        }
     }
+
+
 }

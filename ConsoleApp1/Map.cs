@@ -21,7 +21,10 @@ namespace TestRpgGame
         InnRest = 14,
         DungeonIn = 15,
         DungeonOut = 25,
-        BattleScene = 26,
+        Lookround = 6,
+        Battle = 16,
+        Farming = 26,
+        BattleChoice = 7,
     }
 
     
@@ -139,11 +142,31 @@ namespace TestRpgGame
                     choiceScript.DungeonOutScript();
                     break;
 
-                case 26: //전투 화면으로
-                    defaultScript.BattleSceneScript();
-                    LimitLine();
-                    choiceScript.BattleSceneScript();
-                    break;
+                case 6:  // 주변 탐색
+                    defaultScript.LookAroundScript();
+                    choiceScript.LookAroundScript();
+                    break;                                      
+
+                //case 16: // 주변 탐색 - 전투시작
+                //    defaultScript.BattleStartScript();
+                //    Console.WriteLine();
+                //    LimitLine();
+                //    defaultScript.PlayerInfoScript();
+                //    defaultScript.PlayerBattleInfo();
+                //    LimitLine();
+                //    defaultScript.EnemyfirstSpawn();
+                //    LimitLine();
+                //    choiceScript.BattleStartScript();
+                //    break;
+
+                //case 26: // 주변 탐색 - 파밍
+                //    defaultScript.FarmingStartScript();                    
+                //    LimitLine();
+                //    choiceScript.FarmingScript();
+                //    break;
+
+                //case 7: // 적 선택
+                //    break;
 
             }
         }

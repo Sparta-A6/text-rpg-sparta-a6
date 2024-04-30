@@ -8,38 +8,34 @@ namespace TestRpgGame
 {
     internal class Enemy
     {
-        public string enemyName { get; set; }
-        public int enemyAttack { get; set; }
-        public int enemyDefence { get; set; }
-        public int enemyHealth { get; set; }
+        public string EnemyName { get; set; }
+        public int EnemyAttack { get; set; }
+        public int EnemyDefence { get; set; }
+        public int CurrentenemytHealth { get; set; }
+        public int MaxenemyHealth { get; set; }
 
-        public Enemy(string name, int attack, int defence, int health)
+        public Enemy(string name, int maxhealth, int attack, int defence)
         {
-            enemyName = name;
-            enemyAttack = attack;
-            enemyDefence = defence;
-            enemyHealth = health;
+            EnemyName = name;
+            EnemyAttack = attack;
+            EnemyDefence = defence;
+            MaxenemyHealth = maxhealth;
+            CurrentenemytHealth = maxhealth;
+
         }
 
-        public void TakeDamage(int damage)
-        {
-            enemyHealth -= damage;
-            if (enemyHealth < 0)
-            {
-                enemyHealth = 0;
-            }
-        }
+        
     }
 
-    internal class EenemyStats
+    internal class EnemyStats
     {
-        public Dictionary<string, Enemy> enemies = new Dictionary<string, Enemy>
+        public static List<Enemy> Enemies { get; set; } = new List<Enemy>
         {
-            {"일반 좀비", new Enemy("일반 좀비", 10, 0, 15) },
-            {"굶주린 좀비", new Enemy("굶주린 좀비", 20, 0, 10) },
-            {"뚱뚱한 좀비", new Enemy("뚱뚱한 좀비", 15, 0, 20) },
-            {"숙주 좀비", new Enemy("숙주 좀비", 20, 5, 50) }
+            new Enemy("일반 좀비", 25, 15, 0),
+            new Enemy("뚱뚱한 좀비", 50, 10, 5),
+            new Enemy("굶주린 좀비", 40, 20, 0),
+            new Enemy("숙주 좀비", 200, 35, 10)
         };
-    }    
+    }
 
 }

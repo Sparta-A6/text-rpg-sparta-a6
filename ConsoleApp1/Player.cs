@@ -13,7 +13,8 @@ namespace TestRpgGame
         public int level = 1;
         public int attack = 10;
         public int defense = 10;
-        public int health = 100;
+        public int currenthealth { get; set; }
+        public int maxhealth { get; set; }
         public static int gold = 15000;
 
         

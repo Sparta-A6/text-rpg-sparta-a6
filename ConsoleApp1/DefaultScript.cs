@@ -18,6 +18,8 @@ namespace TestRpgGame
         public static bool IsUsed = false;
 
         public static string ItemName = "";
+        public static int ItemHP = 0;
+        public static int ItemIP = 0;
         public static int ItemPrice = 0;
 
         public void VillageScript()
@@ -65,7 +67,9 @@ namespace TestRpgGame
 
             if (IsUsed == true)
             {
-                ColorChange.ColorWriteLine(10, $" {ItemName}을(를) 사용했습니다. \n");
+                Player.PlusHp(ItemHP);
+                ColorChange.ColorWriteLine(10, $" {ItemName}을(를) 사용했습니다. ");
+                ColorChange.ColorWriteLine(10,  $"현재 체력 {Player.health} / 100 \n");
                 IsUsed = false;
             }
         }
@@ -137,7 +141,46 @@ namespace TestRpgGame
         {
             Console.WriteLine(" 이름 : " + Player.playerName);
             Console.WriteLine(" 레벨 : " + Player.level);
-            Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
+
+            Console.WriteLine();
+
+            Player.PlayerHpGauge(); // 플레이어 체력게이지
+
+            Console.Write(" 현재 체력 : ");
+            if (Player.health>=90)
+            {
+                ColorChange.ColorWrite(11, Player.health);
+            }
+            else if ((Player.health <90)&&(Player.health>=50))
+            {
+                ColorChange.ColorWrite(10, Player.health);
+            }
+            else if (Player.health < 50)
+            {
+                ColorChange.ColorWrite(12, Player.health);
+            }
+                Console.Write(" / 100\n");
+
+            Console.WriteLine();
+
+            Player.PlayerIpGauge(); // 플레이어 감염도 게이지
+
+            Console.Write(" 현재 감염도 : ");
+            if (Player.infection >= 70)
+            {
+                ColorChange.ColorWrite(12, Player.infection);
+            }
+            else if ((Player.infection < 70) && (Player.infection >= 30))
+            {
+                ColorChange.ColorWrite(9, Player.infection+"%");
+            }
+            else if (Player.infection < 30)
+            {
+                ColorChange.ColorWrite(11, Player.infection);
+            }
+            Console.Write(" / 100%\n");
+
+            Console.WriteLine();
 
             Console.WriteLine(" 공격력 : " + Player.attack);
             Console.WriteLine(" 방어력 : " + Player.defense + "\n");

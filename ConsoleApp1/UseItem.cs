@@ -87,6 +87,8 @@ namespace TestRpgGame
                 {
                     DefaultScript.IsUsed = true;
                     DefaultScript.ItemName = item.Name;
+                    DefaultScript.ItemHP = item.Hp;
+                    DefaultScript.ItemIP = item.Ip;
                     item.Count--;
                     if(item.Count == 0)
                     {

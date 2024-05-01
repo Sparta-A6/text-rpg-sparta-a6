@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace TestRpgGame
 {
-    internal class Item
+    internal class WeaponItem
     {
-        public static List<Item> items = new List<Item>();  // 기본 무기 아이템
-        public static List<Item> DpItem = new List<Item>();  // 방어 아이템
+        public static List<WeaponItem> items = new List<WeaponItem>();  // 기본 무기 아이템
 
 
-        public Item(string name, String desc, bool isHave, bool isTake, int adstat, int dpstat, int price, int idx)
+
+        public WeaponItem(string name, String desc, bool isHave, bool isTake, int adstat, int dpstat, int price, int idx)
         {
             Name = name; // 아이템 이름
             Desc = desc; // 아이템 설명
@@ -60,7 +60,7 @@ namespace TestRpgGame
 
         public static void ItemHaveInTrue(int choice, int mapNum) // 아이템을 구매 할 경우 True로 바꿔주는 함수
         {
-            foreach (Item item in items)
+            foreach (WeaponItem item in items)
             {
                 if ((choice == item.IDX) && (Player.gold >= item.Price) && (mapNum == 13)) // 구매할 경우
                 {
@@ -89,7 +89,7 @@ namespace TestRpgGame
         }
         public static void ItemTakeInTrue(int choice) // 아이템을 착용 할 경우 True로 바꿔주는 함수
         {
-            foreach (Item item in items)
+            foreach (WeaponItem item in items)
             {
                 if (choice == item.IDX)
                 {
@@ -97,11 +97,11 @@ namespace TestRpgGame
                 }
             }
         }
-        public int AllItemInShopScript(int mapNum) // 상점 장비 아이템 스크립트 제작
+        public int WpItemInShopScript(int mapNum) // 상점 무기 아이템 스크립트 제작
         {
             if (mapNum == 23) // 아이템 판매 페이지
             {
-                AllItemInHaveScript(mapNum);
+                WpItemInHaveScript(mapNum);
                 return 0;
             }
 
@@ -109,7 +109,7 @@ namespace TestRpgGame
             {
 
                 int count = 1;
-                foreach (Item item in items)
+                foreach (WeaponItem item in items)
                 {
                     if (item.IsHave == false)
                     {
@@ -127,8 +127,10 @@ namespace TestRpgGame
             }
             else  // 상점 페이지
             {
+                ColorChange.ColorWriteLine(8, "  ◀   [ 무기류 ]   ▶      \n");
+
                 int count = 1;
-                foreach (Item item in items)
+                foreach (WeaponItem item in items)
                 {
                     item.IDX = count;
                     Console.Write("  - " + item.Name);  // 이름
@@ -150,31 +152,34 @@ namespace TestRpgGame
 
         }
 
-        public int AllItemInHaveScript(int mapNum) //  소유한 장비 아이템 스크립트 제작
+        public void WpItemIsTakeScript() // 인벤토리 -  장착한 무기 아이템 스크립트 제작
         {
-            Console.WriteLine(" [ 무기 아이템 ]\n");
-
-            if (mapNum == 2) // 인벤토리 페이지
+            Console.WriteLine(" [ 장착한 아이템 ]\n");
+            Console.WriteLine(" [ 무기 ]");
+            int count = 1;
+            foreach (WeaponItem item in items)
             {
-                int count = 1;
-                foreach (Item item in items)
+                item.IDX = count;
+                // 가지고 있는 아이템만 생성
+                if ((item.IsHave == true) && (item.IsTake == true))
                 {
-                    item.IDX = count;
-                    // 가지고 있는 아이템만 생성
-                    if (item.IsHave == true) 
-                    {
-                        Console.Write("  - " + item.Name);  // 이름
-                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
-                        Console.WriteLine(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | \n");  // 상세 정보
-                    }
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("  - " + item.Name);  // 이름
+                    ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    Console.WriteLine(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | \n");  // 상세 정보
+                    Console.ForegroundColor = ConsoleColor.Black;
                     count++;
                 }
-                return 0;
             }
-            else if (mapNum == 12) // 인벤토리 장착 페이지
+        }
+        public int WpItemInHaveScript(int mapNum) //  아이템 장착, 상점 판매 - 소유한 장비 아이템 스크립트 제작
+        {
+            Console.WriteLine(" [ 무기 아이템 ]\n");
+            
+            if (mapNum == 12) // 인벤토리 장착 페이지
             {
                 int count = 1;
-                foreach (Item item in items)
+                foreach (WeaponItem item in items)
                 {
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
                     {
@@ -187,7 +192,7 @@ namespace TestRpgGame
                             ColorChange.ColorWrite(10, item.Name);  // 이름
                             ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                             Console.Write(item.Desc);
-                            ColorChange.ColorWrite(10, " [E] ");
+                            ColorChange.ColorWrite(10, " [장착중 : 무기] ");
                         }
                         else
                         {
@@ -206,7 +211,7 @@ namespace TestRpgGame
             else // 상점 판매 페이지
             {
                 int count = 1;
-                foreach (Item item in items)
+                foreach (WeaponItem item in items)               
                 {
                     item.IDX = count;
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
@@ -224,6 +229,8 @@ namespace TestRpgGame
                 return count - 1;
             }
         }
+
+        // 아이템 글씨 간격 맞추는 함수
         public static void ItemSort(int i)
         {
             switch (i)
@@ -250,13 +257,14 @@ namespace TestRpgGame
         }
 
 
-        public void AllItemInShopList()
+        // 초기설정 : 무기 아이템 상점 리스트에 집어넣기
+        public void WpItemInShopList()
         {
             for (int i = 0; i < itemname.Length; i++) // 무기 아이템
             {
-                items.Add(new Item(itemname[i], itemdesc[i], itemishave[i], itemistake[i], itemadstat[i], itemdpstat[i], itemprice[i], itemidx[i]));
+                items.Add(new WeaponItem (itemname[i], itemdesc[i], itemishave[i], itemistake[i], itemadstat[i], itemdpstat[i], itemprice[i], itemidx[i]));
             }
 
-        } // 초기설정 : 모든 아이템 상점 리스트에 집어넣기
+        } 
     }
 }

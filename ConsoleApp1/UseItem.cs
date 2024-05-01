@@ -56,7 +56,7 @@ namespace TestRpgGame
                 UseItems.Add(new UseItem(useitemname[i], useitemdesc[i], useitemishave[i], useitemcount[i], useitemhp[i], useitemip[i], useitemprice[i], useitemidx[i]));
             }
         }
-        public int UseItemInHaveScript() //  소유한 장비 아이템 스크립트 제작 
+        public int UseItemInHaveScript() //  소유한 소모 아이템 스크립트 제작 
         {
             Console.WriteLine(" [ 소모 아이템 ]\n");
 
@@ -69,7 +69,7 @@ namespace TestRpgGame
                         item.IDX = count;
                         Console.Write(" " + count + ". ");  // 번호
                         Console.Write(item.Name);  // 이름
-                        Item.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        WeaponItem.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 체력 + " + item.Hp + "  | 감염도 - " + item.Ip + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(12, (item.Count + "개 보유 \n")); // 가격 + 색상 함수
                         count++;

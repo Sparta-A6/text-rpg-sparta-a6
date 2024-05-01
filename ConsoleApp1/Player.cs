@@ -9,7 +9,6 @@ namespace TestRpgGame
     internal class Player
     {
 
-
         // 플레이어 정보
         public string playerName = " 지원 ";
         public int level = 1;

@@ -14,7 +14,7 @@ namespace TestRpgGame
     public class ChoiceScript
     {
         string[] VillageChoice = { "플레이어 정보 (PlayerInfo)", "인벤토리 (Inventory)", "상점 (Shop)", "여관 (Inn)", "던전 (Dungeon)" };
-        string[] ShopChoice = { "상점에서 나가기 (Village)", "아이템 구매", "아이템 판매" };
+        string[] ShopChoice = { "카테고리 변경", "상점에서 나가기 (Village)", "아이템 구매", "아이템 판매" };
         string[] InnChoice = { "여관에서 나가기 (Village)", "휴식하기" };
         string[] InventoryChoice = { "인벤토리 닫기 (Close)", "아이템 장착관리", "아이템 사용" };
         string[] DungeonChoice = { "마을로 돌아가기 (Village)", "던전으로 진입" };
@@ -39,7 +39,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < ShopChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write("\n " + (i ) + ". ");
                 Console.WriteLine($"{ShopChoice[i]}");
             }
         }

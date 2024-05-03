@@ -15,6 +15,7 @@ namespace TestRpgGame
                  
         Map map = new Map();
 
+
         public Battle(Player player, List<Enemy> enemies)
         {
             this.player = player;
@@ -302,7 +303,9 @@ namespace TestRpgGame
                 Console.WriteLine("마을로 돌아갑니다.");
                 Console.ReadLine();
                 Console.Clear();
-                map.mapInfoScript(0);     //이 부분 아직 해결 못함
+                MainGame.mapNum = 0;
+                map.makeMapScript(0);
+                map.mapInfoScript(0);                
             }
 
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);

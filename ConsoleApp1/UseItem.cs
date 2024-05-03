@@ -11,7 +11,7 @@ namespace TestRpgGame
 
         public static List <UseItem> UseItems = new List<UseItem>();  // 사용 아이템
 
-        public UseItem(string name, String desc, bool isHave, int count, int hp, int ip, int price, int idx)
+        public UseItem(string name, string desc, bool isHave, int count, int hp, int ip, int price, int idx)
         {
             Name = name; // 아이템 이름
             Desc = desc; // 아이템 설명
@@ -22,8 +22,8 @@ namespace TestRpgGame
             Price = price;
             IDX = idx; // 공개 X 아이템 인덱스
         }
-        public String Name { get; }
-        public String Desc { get; }
+        public string Name { get; }
+        public string Desc { get; }
         public bool IsHave { get; set; }
         public int Count { get; set; }
         public int Hp { get; }
@@ -32,29 +32,34 @@ namespace TestRpgGame
         public int IDX { get; set; }
 
 
-        string[] useitemname = { "자유시간", "파워에이드", "백신시약품", "백신" };
-        string[] useitemdesc = {
-            "조금 녹았지만 맛있습니다.",
-            "미지근하지만 마실만 합니다.",
-            "아직 검증되진 않았지만, 바이러스 상대로는 좋습니다.",
-            "감염율을 눈에 띄게 줄여줍니다." };
+        bool[] itemishave;
+        bool[] itemistake;
 
-        bool[] useitemishave = { true, true, true, true };
-        int[] useitemcount = { 1, 2, 1, 1 };
+        int[] itemidx;
+        int[] itemcount;
 
-        int[] useitemhp = { 15, 25, 20, 50 };
-        int[] useitemip = { 0, 0, 25, 50 };
-
-        int[] useitemprice = { 800, 800, 1100, 1300 };
-        int[] useitemidx = { 1, 2, 3, 4 };
-
-
-        public void UseItemInShopList()
+        // 배열 사이즈 제작 (초기에 한번만 실행)
+        public void ArrSizeMake(int size)
         {
-            for (int i = 0; i < useitemname.Length; i++) // 사용 아이템 
+            itemishave = new bool[size];
+            itemistake = new bool[size];
+            itemidx = new int[size];
+            itemcount = new int[size];
+
+            for (int i = 0; i < size; i++)
             {
-                UseItems.Add(new UseItem(useitemname[i], useitemdesc[i], useitemishave[i], useitemcount[i], useitemhp[i], useitemip[i], useitemprice[i], useitemidx[i]));
+                itemishave[i] = false;
+                itemistake[i] = false;
+                itemidx[i] = i + 1;
+                itemcount[i] = 0;
             }
+        }
+
+
+        public void UseItemInShopList(string name, int hp, int ip, int price, string desc, int num)
+        {
+            UseItems.Add(new UseItem(name, desc, itemishave[num], itemcount[num], hp, ip, price, itemidx[num]));
+
         }
         public int UseItemInHaveScript() //  소유한 소모 아이템 스크립트 제작 
         {

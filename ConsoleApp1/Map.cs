@@ -35,8 +35,11 @@ namespace TestRpgGame
     {
         DefaultScript defaultScript = new DefaultScript();
         ChoiceScript choiceScript = new ChoiceScript();
+
         WeaponItem item = new WeaponItem("-", "-", false, false, 0, 0, 0, 0);
+        DefenseItem DpItem = new DefenseItem("", "", false, false, 0, 0, 0, "", 0);
         UseItem useItem = new UseItem("-", "-", false, 0, 0, 0, 0, 0);
+
 
         public int ScriptCount; //선택지 개수 줄이는 용도
 

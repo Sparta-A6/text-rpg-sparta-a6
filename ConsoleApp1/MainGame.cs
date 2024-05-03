@@ -29,6 +29,7 @@ namespace TestRpgGame
             map.ItemInList();
 
 
+
             while (isGamePlay) // 게임 플레이중이라면 반복할 부분 
             {
                 map.makeMapScript(mapNum); // 맵 이름스크립트 출력

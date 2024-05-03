@@ -30,7 +30,7 @@ namespace TestRpgGame
         string[] LookAroundStartChoice = { "마을로 돌아가기 (Village)", "확인 해보기" };
         string[] BattleStartChoice = { "공격하기", "아이템 사용하기" };
         string[] FarmingChoice = { "마을로 돌아가기 (Village)", "계속 둘러보기" };
-        string[] EnemyChoice = { "", "아이템 사용하기" };
+        string[] EnemyChoice = { "공격하기", "아이템 사용하기" };
 
         public void VillageScript()
         {
@@ -162,5 +162,6 @@ namespace TestRpgGame
                 Console.WriteLine($"{EnemyChoice[i]}");
             }
         }
+
     }
 }

@@ -11,8 +11,7 @@ namespace TestRpgGame
     public class ChoiceLink
     {
         Map map = new Map();
-                        
-
+                
         public static char MakeScriptCount;
         
         //map(n)Choice를 Map번호에 맞춰 실행시켜주는 함수
@@ -71,10 +70,7 @@ namespace TestRpgGame
                 case 26:
                     map26Choice(mapNumber, isCan, playerChoice, ScriptCount);
                     break;
-
-                case 7:
-                    map7Choice(mapNumber, isCan, playerChoice, ScriptCount);
-                    break;
+                                    
 
             }
        
@@ -571,7 +567,7 @@ namespace TestRpgGame
                         switch (randomChoice)
                         {
                             case 1:
-                                //battle.StartBattle();
+                                MainGame.mapNum = 16;
                                 break;
                             case 2:
                                 MainGame.mapNum = 26;
@@ -596,11 +592,9 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
-                        MainGame.mapNum = 7;
+                    case 1:                                                
                         break;
-                    case 2:
-                        MainGame.mapNum = 0;
+                    case 2:                        
                         break;
 
                     default:
@@ -646,31 +640,8 @@ namespace TestRpgGame
             {
                 MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
             }
+        
+        
         }
-        void map7Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
-        {
-            if (isCan)
-            {
-                MainGame.instructionNum = 0;
-                switch (playerChoice)
-                {
-                    case 1:
-                        MainGame.mapNum = 7;
-                        break;
-                    case 2:
-                        MainGame.mapNum = 0;
-                        break;
-
-                    default:
-                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
-                        break;
-                }
-            }
-            else
-            {
-                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
-            }
-        }
-
-    }
+    }    
 }

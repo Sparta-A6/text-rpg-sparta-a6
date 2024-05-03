@@ -151,31 +151,6 @@ namespace TestRpgGame
             Console.WriteLine(" 소지금 : " + Player.gold + " G \n");
         }
 
-        public void PlayerBattleInfo()
-        {
-            Console.WriteLine(" 이름 : " + Player.playerName);
-            Console.WriteLine(" 레벨 : " + Player.level);
-            Console.WriteLine(" 현재 체력 : " + Player.currenthealth + " / 100\n");
-
-            Console.WriteLine(" 공격력 : " + Player.attack);
-            Console.WriteLine(" 방어력 : " + Player.defense + "\n");            
-        }
-
-        public void EnemyfirstSpawn()
-        {
-            Console.WriteLine(" [ 적 정보 ] \n");
-            Random random = new Random();
-            int enemyCount = random.Next(1, 4);
-
-            for (int i = 0; i < enemyCount; i++)
-            {
-                int index = random.Next(0, 2);
-                string enemyName = index == 0 ? "일반 좀비" : "뚱뚱한 좀비";                
-                Enemy enemy = EnemyStats.Enemies.Find(e => e.EnemyName == enemyName);
-                Console.WriteLine($"{i+1}. {enemy.EnemyName} 체력: {enemy.CurrentenemytHealth}/{enemy.MaxenemyHealth} 공격력: {enemy.EnemyAttack} 방어력: {enemy.EnemyDefence}");
-            }
-        }
-
         public void LookAroundScript()
         {
             Console.WriteLine("앞에 무언가 보이는 것 같습니다");
@@ -188,10 +163,7 @@ namespace TestRpgGame
             Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다.");
         }
 
-        public void Battle()
-        {
-
-        }
+        
     }
 
 

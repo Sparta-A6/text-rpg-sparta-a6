@@ -139,7 +139,7 @@ namespace TestRpgGame
                                             Console.WriteLine($"좀비의 머리를 명중시켜 {damage}의 피해를 입혔습니다!!");
                                             selectedEnemy.CurrentenemytHealth -= damage;
                                             Console.WriteLine("---------------------------------------");
-                                            Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                            Console.WriteLine("계속 진행하시려면 엔터키를 입력해주세요");
                                             Console.ReadLine();
                                         }
                                         else
@@ -147,7 +147,7 @@ namespace TestRpgGame
                                             selectedEnemy.CurrentenemytHealth -= damage;
                                             Console.WriteLine($"좀비를 공격해 {damage}의 피해를 주었습니다!");
                                             Console.WriteLine("---------------------------------------");
-                                            Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                            Console.WriteLine("계속 진행하시려면 엔터키를 입력해주세요");
                                             Console.ReadLine();
                                         }
                                     }
@@ -155,7 +155,7 @@ namespace TestRpgGame
                                     {
                                         Console.WriteLine("공격이 빗나갔습니다...");
                                         Console.WriteLine("---------------------------------------");
-                                        Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                        Console.WriteLine("계속 진행하시려면 엔터키를 입력해주세요");
                                         Console.ReadLine();
                                     }
                                 }
@@ -233,11 +233,11 @@ namespace TestRpgGame
                     PrintEnemyInfo();
                     Console.WriteLine("---------------------------------------");
 
-                    Console.WriteLine($"{newEnemy.EnemyName}가 당신을 공격했습니다!");
+                    Console.WriteLine($"{enemies.IndexOf(newEnemy) + 1}.{newEnemy.EnemyName}가 당신을 공격했습니다!");
                     Console.WriteLine($"{enemyDamage}의 피해를 입었습니다!");
 
                     Console.WriteLine("---------------------------------------");
-                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                    Console.WriteLine("계속 진행하시려면 엔터키를 입력해주세요");
                     Console.ReadLine();
 
                     if (player.currenthealth == 0)
@@ -302,7 +302,7 @@ namespace TestRpgGame
                 Console.WriteLine("마을로 돌아갑니다.");
                 Console.ReadLine();
                 Console.Clear();
-                map.mapInfoScript(0);                
+                map.mapInfoScript(0);     //이 부분 아직 해결 못함
             }
 
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);

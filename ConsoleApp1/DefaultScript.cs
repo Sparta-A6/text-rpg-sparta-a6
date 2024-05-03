@@ -166,6 +166,8 @@ namespace TestRpgGame
             if (randomNumber == 1)
             {
                 Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
+                Console.WriteLine("약간의 경험치를 획득했다.");
+                Player.GainExperience(10);
             }
             else if (randomNumber == 2)
             {
@@ -173,12 +175,12 @@ namespace TestRpgGame
                 Console.WriteLine($"부패한 좀비의 시체 밑에서 무언가 반짝이고 있습니다.");
                 Console.WriteLine($"{foundGold}G를 발견했습니다!");
                 Player.gold += foundGold;
+            }          
+            else
+            {
+
             }
-
-            Player.GainExperience(10);
         }
-
-        
     }
 
 

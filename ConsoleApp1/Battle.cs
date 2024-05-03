@@ -14,6 +14,7 @@ namespace TestRpgGame
         private Random random = new Random();
 
         MainGame mainGame = new MainGame();
+        Map map = new Map();
 
         public Battle(Player player, List<Enemy> enemies)
         {
@@ -296,8 +297,9 @@ namespace TestRpgGame
                 Console.WriteLine();
                 Console.ReadLine();
                 Console.WriteLine("마을로 돌아갑니다.");
-                Console.ReadLine();                
-                // 여기에 마을로 돌아가는 코드                
+                Console.ReadLine();
+                Console.Clear();
+                map.mapInfoScript(0);
             }
 
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);

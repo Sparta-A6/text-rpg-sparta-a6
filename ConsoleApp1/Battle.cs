@@ -12,8 +12,8 @@ namespace TestRpgGame
         private Player player;
         private List<Enemy> enemies;
         private Random random = new Random();
-
-        MainGame mainGame = new MainGame();        
+                 
+        Map map = new Map();
 
         public Battle(Player player, List<Enemy> enemies)
         {
@@ -243,33 +243,12 @@ namespace TestRpgGame
                     if (player.currenthealth == 0)
                     {
                         Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("플레이어가 좀비에게 사망하였습니다...");
+                        Console.WriteLine("좀비에게 물려 사망하였습니다...");
                         Console.WriteLine("---------------------------------------");
-                        Console.WriteLine("1. 게임 다시 시작하기");
-                        Console.WriteLine("2. 게임 종료하기");
+                        Console.WriteLine("게임이 종료됩니다.");                        
                         Console.WriteLine("---------------------------------------");
-
-                        int choice;
-
-                        if (int.TryParse(Console.ReadLine(), out choice))
-                        {
-                            switch (choice)
-                            {
-                                case 1:
-                                    mainGame.Start();// 게임 다시 시작
-                                    break;
-                                case 2:
-                                    Environment.Exit(0); // 게임 종료
-                                    break;
-                                default:
-                                    Console.WriteLine("올바른 선택지를 입력하세요.");
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("올바른 선택지를 입력하세요.");
-                        }
+                        Console.ReadLine();
+                        Environment.Exit(0);
                     }    
                 }
             }
@@ -299,34 +278,12 @@ namespace TestRpgGame
             if (player.currenthealth == 0)
             {
                 Console.WriteLine("---------------------------------------");
-                Console.WriteLine("플레이어가 좀비에게 사망하였습니다...");
+                Console.WriteLine("좀비에게 물려 사망하였습니다...");
                 Console.WriteLine("---------------------------------------");
-                Console.WriteLine("1. 게임 다시 시작하기");
-                Console.WriteLine("2. 게임 종료하기");
+                Console.WriteLine("게임이 종료됩니다.");
                 Console.WriteLine("---------------------------------------");
-
-                int choice;
-
-                if (int.TryParse(Console.ReadLine(), out choice))
-                {
-                    switch (choice)
-                    {
-                        case 1:
-                            mainGame.Start();// 게임 다시 시작
-                            break;
-                        case 2:
-                            Environment.Exit(0); // 게임 종료
-                            break;
-                        default:
-                            Console.WriteLine("올바른 선택지를 입력하세요.");
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("올바른 선택지를 입력하세요.");                    
-                }
-
+                Console.ReadLine();
+                Environment.Exit(0);
             }
 
             if (enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0))
@@ -342,9 +299,10 @@ namespace TestRpgGame
                 Player.gold += foundGold;
                 Console.WriteLine();
                 Console.ReadLine();
-                Console.WriteLine("마을로 돌아갑니다."); // 다시 마을로 돌아가는 부분 미흡
+                Console.WriteLine("마을로 돌아갑니다.");
                 Console.ReadLine();
-                Console.Clear();                
+                Console.Clear();
+                map.mapInfoScript(0);                
             }
 
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);

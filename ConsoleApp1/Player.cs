@@ -19,12 +19,31 @@ namespace TestRpgGame
         public float Accuracy = 0.8f; // 명중률
         public float Avoidance = 0.2f;  // 회피율
         public float Critical = 0.1f; // 치명타율
+        public int experience = 0;
+        public int experienceLevelUp = 100;
 
         public static Player GetPlayerStatInfo()
         {
             Player player = new Player();            
             return player;
         }
-    }
 
+        public void GainExperience(int amount)
+        {
+            experience += amount;
+            if (experience >= experienceLevelUp)
+            {
+                LevelUp();
+                Console.WriteLine("레벨이 올랐습니다!");
+                Console.WriteLine("최대 체력이 10 증가합니다");
+            }
+        }
+
+        private void LevelUp()
+        {
+            experienceLevelUp = (int)(experienceLevelUp * 1.3f);
+            level++;
+            maxhealth += 10;         
+        }
+    }
 }

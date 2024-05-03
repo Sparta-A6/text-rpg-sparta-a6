@@ -587,24 +587,24 @@ namespace TestRpgGame
         }
         void map16Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
         {
-            if (isCan)
-            {
-                MainGame.instructionNum = 0;
-                switch (playerChoice)
-                {
-                    case 1:
-                        MainGame.mapNum = 0;
-                        break;
+            //if (isCan)
+            //{
+            //    MainGame.instructionNum = 0;
+            //    switch (playerChoice)
+            //    {
+            //        case 1:
+            //            MainGame.mapNum = 0;
+            //            break;
                     
-                    default:
-                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
-                        break;
-                }
-            }
-            else
-            {
-                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
-            }
+            //        default:
+            //            MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            //}
         }
         void map26Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
         {

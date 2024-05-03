@@ -35,7 +35,16 @@ namespace TestRpgGame
 
             for (int i = 0; i < enemyCount; i++)
             {
-                int randomEnemyIndex = random.Next(2);
+                int randomEnemyIndex;
+                if (player.level >= 3)
+                {
+                    randomEnemyIndex = random.Next(3);
+                }
+                else
+                {
+                    randomEnemyIndex = random.Next(2);
+                }
+
                 Enemy randomEnemy = EnemyStats.Enemies[randomEnemyIndex];
 
                 Enemy newEnemy = new Enemy(randomEnemy.EnemyName, randomEnemy.MaxenemyHealth,
@@ -129,16 +138,25 @@ namespace TestRpgGame
                                             damage = (int)(damage * 1.5);
                                             Console.WriteLine($"좀비의 머리를 명중시켜 {damage}의 피해를 입혔습니다!!");
                                             selectedEnemy.CurrentenemytHealth -= damage;
+                                            Console.WriteLine("---------------------------------------");
+                                            Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                            Console.ReadLine();
                                         }
                                         else
                                         {   //일반 공격
                                             selectedEnemy.CurrentenemytHealth -= damage;
                                             Console.WriteLine($"좀비를 공격해 {damage}의 피해를 주었습니다!");
+                                            Console.WriteLine("---------------------------------------");
+                                            Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                            Console.ReadLine();
                                         }
                                     }
                                     else
                                     {
                                         Console.WriteLine("공격이 빗나갔습니다...");
+                                        Console.WriteLine("---------------------------------------");
+                                        Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                                        Console.ReadLine();
                                     }
                                 }
                                 else
@@ -197,33 +215,62 @@ namespace TestRpgGame
             foreach (var newEnemy in enemies)
             {
                 if (newEnemy.CurrentenemytHealth > 0)
-                {
+                {                    
                     int enemyDamage = newEnemy.EnemyAttack - player.defense;
+                    player.currenthealth -= Math.Max(0, enemyDamage);
+                    player.currenthealth = Math.Max(0, player.currenthealth);
+
+                    Console.Clear();                                        
+
+                    Console.WriteLine(" [ 플레이어 정보 ]\n");
+                    Console.WriteLine($" 이름 :  {player.playerName}");
+                    Console.WriteLine($" 레벨 : {player.level}");
+                    Console.WriteLine($" 현재 체력 : {player.currenthealth} / {player.maxhealth}");
+                    Console.WriteLine($" 공격력 : {player.attack}");
+                    Console.WriteLine($" 방어력 : {player.defense}");
+                    Console.WriteLine("---------------------------------------");
+
+                    PrintEnemyInfo();
+                    Console.WriteLine("---------------------------------------");
 
                     Console.WriteLine($"{newEnemy.EnemyName}가 당신을 공격했습니다!");
                     Console.WriteLine($"{enemyDamage}의 피해를 입었습니다!");
 
-                    player.currenthealth -= Math.Max(0, enemyDamage);
-                    player.currenthealth = Math.Max(0, player.currenthealth);
-
                     Console.WriteLine("---------------------------------------");
-                    Console.WriteLine("1. 계속 진행하시겠습니까? ");
-                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                    Console.ReadLine();
 
-                    while (true)
+                    if (player.currenthealth == 0)
                     {
-                        if (Console.ReadLine() != "1")
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("플레이어가 좀비에게 사망하였습니다...");
+                        Console.WriteLine("---------------------------------------");
+                        Console.WriteLine("1. 게임 다시 시작하기");
+                        Console.WriteLine("2. 게임 종료하기");
+                        Console.WriteLine("---------------------------------------");
+
+                        int choice;
+
+                        if (int.TryParse(Console.ReadLine(), out choice))
                         {
-                            Console.WriteLine("\n---------------------------------------");
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(" 올바른 값을 입력해주십시오.");
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            switch (choice)
+                            {
+                                case 1:
+                                    mainGame.Start();// 게임 다시 시작
+                                    break;
+                                case 2:
+                                    Environment.Exit(0); // 게임 종료
+                                    break;
+                                default:
+                                    Console.WriteLine("올바른 선택지를 입력하세요.");
+                                    break;
+                            }
                         }
                         else
                         {
-                            break;
+                            Console.WriteLine("올바른 선택지를 입력하세요.");
                         }
-                    }
+                    }    
                 }
             }
         }
@@ -287,8 +334,12 @@ namespace TestRpgGame
                 Console.WriteLine("---------------------------------------");
                 Console.WriteLine("주위의 좀비를 모두 물리쳤습니다!");
                 Console.WriteLine();
+                int totalnewEnemyAttack = enemies.Sum(newEnemy => newEnemy.EnemyAttack);
+                player.GainExperience(totalnewEnemyAttack);
                 Console.ReadLine();
-                Console.WriteLine("좀비의 주머니에서 전리품을 획득하였습니다.");
+                int foundGold = random.Next(0, 401);
+                Console.WriteLine($"죽은 좀비의 품에서 {foundGold}G를 발견했습니다!");
+                Player.gold += foundGold;
                 Console.WriteLine();
                 Console.ReadLine();
                 Console.WriteLine("마을로 돌아갑니다."); // 다시 마을로 돌아가는 부분 미흡

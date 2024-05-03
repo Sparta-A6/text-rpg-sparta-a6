@@ -159,8 +159,23 @@ namespace TestRpgGame
         }
 
         public void FarmingStartScript()
-        {            
-            Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다.");
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(1, 3); 
+
+            if (randomNumber == 1)
+            {
+                Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
+            }
+            else if (randomNumber == 2)
+            {
+                int foundGold = random.Next(0, 201);
+                Console.WriteLine($"부패한 좀비의 시체 밑에서 무언가 반짝이고 있습니다.");
+                Console.WriteLine($"{foundGold}G를 발견했습니다!");
+                Player.gold += foundGold;
+            }
+
+            Player.GainExperience(10);
         }
 
         

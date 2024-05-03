@@ -157,11 +157,13 @@ namespace TestRpgGame
 
                 case 16: // 주변 탐색 - 전투시작
                     defaultScript.BattleStartScript();
+                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
                     Console.ReadLine();
                     StartBattle();
                     break;
 
-                case 26: // 주변 탐색 - 파밍
+                case 26: // 주변 탐색 - 파밍                    
                     defaultScript.FarmingStartScript();
                     LimitLine();
                     choiceScript.FarmingScript();

@@ -13,8 +13,7 @@ namespace TestRpgGame
         private List<Enemy> enemies;
         private Random random = new Random();
 
-        MainGame mainGame = new MainGame();
-        Map map = new Map();
+        MainGame mainGame = new MainGame();        
 
         public Battle(Player player, List<Enemy> enemies)
         {
@@ -278,11 +277,7 @@ namespace TestRpgGame
                 }
                 else
                 {
-                    Console.WriteLine("올바른 선택지를 입력하세요.");
-                    while (Console.ReadLine() != "1")
-                    {
-                        break;
-                    }
+                    Console.WriteLine("올바른 선택지를 입력하세요.");                    
                 }
 
             }
@@ -296,10 +291,9 @@ namespace TestRpgGame
                 Console.WriteLine("좀비의 주머니에서 전리품을 획득하였습니다.");
                 Console.WriteLine();
                 Console.ReadLine();
-                Console.WriteLine("마을로 돌아갑니다.");
+                Console.WriteLine("마을로 돌아갑니다."); // 다시 마을로 돌아가는 부분 미흡
                 Console.ReadLine();
-                Console.Clear();
-                map.mapInfoScript(0);
+                Console.Clear();                
             }
 
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);

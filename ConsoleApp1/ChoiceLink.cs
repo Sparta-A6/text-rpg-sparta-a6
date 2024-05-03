@@ -592,11 +592,10 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:                                                
+                    case 1:
+                        MainGame.mapNum = 0;
                         break;
-                    case 2:                        
-                        break;
-
+                    
                     default:
                         MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
                         break;

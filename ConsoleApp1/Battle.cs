@@ -308,6 +308,7 @@ namespace TestRpgGame
                 map.mapInfoScript(0);                
             }
 
+
             return player.currenthealth <= 0 || enemies.All(newEnemy => newEnemy.CurrentenemytHealth <= 0);
 
         }

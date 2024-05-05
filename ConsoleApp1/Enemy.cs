@@ -38,7 +38,7 @@ namespace TestRpgGame
     {
         public static List<Enemy> Enemies { get; set; } = new List<Enemy>
         {
-            new Enemy("일반 좀비", 25, 20, 0),
+            new Enemy("일반 좀비", 25, 15, 0),
             new Enemy("뚱뚱한 좀비", 40, 15, 5),
             new Enemy("굶주린 좀비", 20, 25, 0),
             new Enemy("숙주 좀비", 200, 40, 10)

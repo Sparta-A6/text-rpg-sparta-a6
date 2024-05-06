@@ -1,7 +1,8 @@
 # text-rpg-sparta-a6
 0429 - 0502 텍스트 알피지 팀 프로젝트 A06
 
-팀 프로젝트 명 : Zombie: Echoes of Survival ( 좀비 아포칼립스 : 생존의 메아리 )
+### 팀 프로젝트 명 
+## Zombie: Echoes of Survival ( 좀비 아포칼립스 : 생존의 메아리 )
 
 
 ### 플로우 차트

@@ -21,6 +21,10 @@ namespace TestRpgGame
         InnRest = 14,
         DungeonIn = 15,
         DungeonOut = 25,
+        Lookround = 6,
+        Battle = 16,
+        Farming = 26,
+        
     }
 
     
@@ -30,9 +34,9 @@ namespace TestRpgGame
         DefaultScript defaultScript = new DefaultScript();
         ChoiceScript choiceScript = new ChoiceScript();
         Item item = new Item("-", "-", false, false, 0, 0, 0, 0);
-
-        public int ScriptCount; //선택지 개수 줄이는 용도
-
+                
+        public int ScriptCount; //선택지 개수 줄이는 용도               
+        
         public void makeMapScript(int choice)
         {
             Console.Clear();
@@ -53,7 +57,15 @@ namespace TestRpgGame
 
         }
 
-        
+        private void StartBattle() // 배틀 스크립트랑 연결 하기 위해 
+        {
+            Player player = new Player();
+            List<Enemy> enemies = new List<Enemy>();
+            Battle battle = new Battle(player, enemies);
+            battle.StartBattle();
+        }
+
+
         public void mapInfoScript(int choice) // 플레이어에게 세부 정보 제공 (맵 및 이벤트)
         {
             
@@ -137,6 +149,25 @@ namespace TestRpgGame
                     LimitLine();
                     choiceScript.DungeonOutScript();
                     break;
+
+                case 6:  // 주변 탐색
+                    defaultScript.LookAroundScript();
+                    choiceScript.LookAroundScript();
+                    break;
+
+                case 16: // 주변 탐색 - 전투시작
+                    defaultScript.BattleStartScript();
+                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                    Console.ReadLine();
+                    StartBattle();
+                    break;
+
+                case 26: // 주변 탐색 - 파밍                    
+                    defaultScript.FarmingStartScript();
+                    LimitLine();
+                    choiceScript.FarmingScript();
+                    break;                           
             }
         }
 
@@ -177,6 +208,7 @@ namespace TestRpgGame
         //    ChoiceLink.MakeScriptCount = (char)ScriptCount;
         //}
      
+
     }
 
 }

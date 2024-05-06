@@ -131,7 +131,11 @@ namespace TestRpgGame
             Console.WriteLine(" 던전 클리어! \n");
         }
 
-
+        public void BattleStartScript()
+        {
+            Console.WriteLine("근처를 둘러보다 좀비들에게 발각되었습니다!!");
+            Console.WriteLine("좀비와의 전투에 돌입합니다.");
+        }
 
 
         //플레이어 정보 공개
@@ -139,12 +143,45 @@ namespace TestRpgGame
         {
             Console.WriteLine(" 이름 : " + Player.playerName);
             Console.WriteLine(" 레벨 : " + Player.level);
-            Console.WriteLine(" 현재 체력 : " + Player.health + " / 100\n");
+            Console.WriteLine(" 현재 체력 : " + Player.currenthealth + " / 100\n");
 
             Console.WriteLine(" 공격력 : " + Player.attack);
             Console.WriteLine(" 방어력 : " + Player.defense + "\n");
 
             Console.WriteLine(" 소지금 : " + Player.gold + " G \n");
         }
+
+        public void LookAroundScript()
+        {
+            Console.WriteLine("앞에 무언가 보이는 것 같습니다");
+            Console.WriteLine("가까이 가서 확인해 보겠습니까?");
+
+        }
+
+        public void FarmingStartScript()
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(1, 3); 
+
+            if (randomNumber == 1)
+            {
+                Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
+                Console.WriteLine("약간의 경험치를 획득했다.");
+                Player.GainExperience(10);
+            }
+            else if (randomNumber == 2)
+            {
+                int foundGold = random.Next(0, 201);
+                Console.WriteLine($"부패한 좀비의 시체 밑에서 무언가 반짝이고 있습니다.");
+                Console.WriteLine($"{foundGold}G를 발견했습니다!");
+                Player.gold += foundGold;
+            }          
+            else
+            {
+
+            }
+        }
     }
+
+
 }

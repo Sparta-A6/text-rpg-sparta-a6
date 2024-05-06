@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +11,7 @@ namespace TestRpgGame
     public class ChoiceLink
     {
         Map map = new Map();
-
+                
         public static char MakeScriptCount;
         
         //map(n)Choice를 Map번호에 맞춰 실행시켜주는 함수
@@ -59,6 +61,17 @@ namespace TestRpgGame
                     map25Choice(mapNumber, isCan, playerChoice, ScriptCount);
                     break;
 
+                case 6:
+                    map6Choice(mapNumber, isCan, playerChoice, ScriptCount);
+                    break;
+                case 16:
+                    map16Choice(mapNumber, isCan, playerChoice, ScriptCount);
+                    break;
+                case 26:
+                    map26Choice(mapNumber, isCan, playerChoice, ScriptCount);
+                    break;
+                                    
+
             }
        
         }
@@ -101,6 +114,11 @@ namespace TestRpgGame
                     case 5:
                         //던전
                         MainGame.mapNum = 5;
+                        break;
+
+                    case 6:
+                        //주변 탐색
+                        MainGame.mapNum = 6;
                         break;
 
                     default:
@@ -532,6 +550,97 @@ namespace TestRpgGame
                 MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
             }
         }
+        void map6Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
+        {
+            if (isCan)
+            {               
+                MainGame.instructionNum = 0;
+                switch (playerChoice)
+                {
+                    case 1:
+                        MainGame.mapNum = 0;
+                        break;
 
-    }
+                    case 2:
+                        Random random = new Random();
+                        int randomChoice = random.Next(1, 3);
+                        switch (randomChoice)
+                        {
+                            case 1:
+                                MainGame.mapNum = 16;
+                                break;
+                            case 2:
+                                MainGame.mapNum = 26;
+                                break;
+                        }
+                        break;
+
+                    default:
+                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+                        break;
+                }
+            }
+            else
+            {
+                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            }
+        }
+        void map16Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
+        {
+            //if (isCan)
+            //{
+            //    MainGame.instructionNum = 0;
+            //    switch (playerChoice)
+            //    {
+            //        case 1:
+            //            MainGame.mapNum = 0;
+            //            break;
+                    
+            //        default:
+            //            MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            //}
+        }
+        void map26Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
+        {
+            if (isCan)
+            {
+                MainGame.instructionNum = 0;
+                switch (playerChoice)
+                {
+                    case 1:
+                        MainGame.mapNum = 0;
+                        break;
+
+                    case 2:
+                        Random random = new Random();
+                        int randomChoice = random.Next(1, 3);
+                        switch (randomChoice)
+                        {
+                            case 1:
+                                MainGame.mapNum = 16;
+                                break;
+                            case 2:
+                                MainGame.mapNum = 26;
+                                break;
+                        }
+                        break;
+                    default:
+                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+                        break;
+                }
+            }
+            else
+            {
+                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            }
+        
+        
+        }
+    }    
 }

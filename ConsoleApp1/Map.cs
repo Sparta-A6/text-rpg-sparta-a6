@@ -87,13 +87,24 @@ namespace TestRpgGame
                 case 2: // 인벤토리
                     defaultScript.InventoryScript();
                     item.WpItemIsTakeScript(); // 장착한 무기 아이템
+                    DpItem.DpItemIsTakeScript(); // 장착한 장비 아이템
                     LimitLine();
                     choiceScript.InventoryScript();
                     break;
 
                 case 12: // 아이템 장착
                     defaultScript.InvenItemScript(); // 소유한 아이템
-                    ScriptCount = item.WpItemInHaveScript(choice); // 값 반환 (Case Break용)
+
+                    switch (itemKategorie)
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInHaveScript(choice); // 값 반환 (Case Break용)
+                            break; 
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInHaveScript(choice); // 값 반환 (Case Break용)
+                            break;
+
+                    }
                     LimitLine();
                     choiceScript.InvenItemScript();
                     break;
@@ -220,7 +231,7 @@ namespace TestRpgGame
         }
         void LimitLine()
         {
-            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("-----------------------------------------------------\n");
         } // 가름줄
 
        

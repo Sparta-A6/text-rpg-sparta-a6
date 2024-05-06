@@ -123,7 +123,7 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1 :
+                    case 0 :
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
@@ -145,18 +145,15 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1 :
-                        //플레이어 인포
+                    case 0 :
                         MainGame.mapNum = 0;
                         break;
 
-                    case  2 :
-                        //플레이어 인포
+                    case  1 :
                         MainGame.mapNum = 12;
                         break;
 
-                    case 3:
-                        //플레이어 인포
+                    case 2 :
                         MainGame.mapNum = 22;
                         break;
 
@@ -178,14 +175,30 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
+                    case 9:
+                        if (Map.itemKategorie == ItemKategorie.Weapon) Map.itemKategorie = ItemKategorie.Armor;
+                        else if (Map.itemKategorie == ItemKategorie.Armor) Map.itemKategorie = ItemKategorie.Weapon;
+                        break;
+
                     case 0:
                         //플레이어 인포
                         MainGame.mapNum = 2;
                         break;
 
+
                     default:
                         if (ScriptCount >= playerChoice)
-                            WeaponItem.ItemTakeInTrue(playerChoice);
+                        {
+                            switch (Map.itemKategorie)
+                            {
+                                case ItemKategorie.Weapon:
+                                    WeaponItem.ItemTakeInTrue(playerChoice);
+                                    break;
+                                case ItemKategorie.Armor:
+                                    DefenseItem.ItemTakeInTrue(playerChoice);
+                                    break;
+                            }
+                        }
                         else MainGame.instructionNum = 1;
                         break;
                 }
@@ -230,28 +243,22 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
-                        //플레이어 인포
+                    case 0: //돌아가기
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
-                        //플레이어 인포
+                    case 1:
                         MainGame.mapNum = 13;
                         break;
 
-                    case 3:
-                        //플레이어 인포
+                    case 2:
                         MainGame.mapNum = 23;
                         break;
 
-                    case 0:
+                    case 9:
                         if (Map.itemKategorie == ItemKategorie.Weapon) Map.itemKategorie = ItemKategorie.Armor;
                         else if (Map.itemKategorie == ItemKategorie.Armor) Map.itemKategorie = ItemKategorie.Used;
                         else if (Map.itemKategorie == ItemKategorie.Used) Map.itemKategorie = ItemKategorie.Weapon;
-                        break;
-
-                    case 9:
                         break;
 
                     default:
@@ -275,23 +282,6 @@ namespace TestRpgGame
                     case 0:
                         //플레이어 인포
                         MainGame.mapNum = 3;
-                        break;
-
-                    case 9:
-                        if (ScriptCount >= playerChoice)
-                            switch (Map.itemKategorie) //만약 아이템 카테고리가 ~~이라면
-                            {
-                                case ItemKategorie.Weapon:
-                                    WeaponItem.ItemHaveInTrue(playerChoice, mapNum);
-                                    break;
-                                case ItemKategorie.Armor:
-                                    DefenseItem.ItemHaveInTrue(playerChoice, mapNum);
-                                    break;
-                                case ItemKategorie.Used:
-                                    UseItem.ItemHaveInTrue(playerChoice, mapNum);
-                                    break;
-                            }
-                        else MainGame.instructionNum = 1;
                         break;
 
                     default:
@@ -362,12 +352,12 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
+                    case 0:
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
+                    case 1:
                         //플레이어 인포
                         MainGame.mapNum = 14;
                         break;
@@ -412,12 +402,12 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
+                    case 0:
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
+                    case 1:
                         //플레이어 인포
                         MainGame.mapNum = 15;
                         break;

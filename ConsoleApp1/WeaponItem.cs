@@ -41,9 +41,6 @@ namespace TestRpgGame
         int[] itemidx;
 
         public int count = 1;
-        public int savecount = 0;
-        public int foreachcount = 0;
-
         // 배열 사이즈 제작
         public void ArrSizeMake(int size)
         {
@@ -97,6 +94,10 @@ namespace TestRpgGame
                 {
                     item.IsTake = !item.IsTake;
                 }
+                else if ((choice != item.IDX)&&(item.IsTake == true))
+                {
+                    item.IsTake = !item.IsTake;
+                }
             }
         }
         public int WpItemInShopScript(int mapNum) // 상점 무기 아이템 스크립트 제작
@@ -116,22 +117,14 @@ namespace TestRpgGame
                 {
                     if (item.IsHave == false)
                     {
-                        item.IDX = count + savecount;
+                        item.IDX = count;
                         Console.Write(" " + count + ". ");  // 번호
                         Console.Write(item.Name);  // 이름
                         ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
 
-                        if (count < 8)
-                        {
-                            count++;
-                        }
-                        else
-                        {
-                            savecount = count;
-                            break;
-                        }
+                        count++;
                     }
                     else item.IDX = 0;
                 }
@@ -141,20 +134,11 @@ namespace TestRpgGame
             else  // 상점 페이지
             {
                 ColorChange.ColorWriteLine(8, "  ◀   [ 무기류 ]   ▶      \n");
-                ColorChange.ColorWriteLine(8, "              \n");
 
-                count = 1; // 아이템 인덱스에 넣어줄 변수 (항상 초기화)
-                foreachcount = 0; // 아이템 스크립트 8회만 나오도록 카운트 하는 변수 (항상 초기화)
-                if (items.Count <= savecount) savecount = 0; //만약 나와야 할 아이템이 더 없다면 = 다시 1부터 꺼내게 하는 초기화
 
                 foreach (WeaponItem item in items)
                 {
-                    if(count <= savecount) //만약 아이템을 이전에 열어본 적이 있다면, 스크립트를 그만큼 건너뛰게 만듬
-                    {
-                        count++;
-                        continue; // 8/16/24회 지나갈 때까지 돌아감.
-                    }
-
+                    
                     item.IDX = count;
                     Console.Write("  - " + item.Name);  // 이름
                     ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
@@ -169,18 +153,8 @@ namespace TestRpgGame
                         ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
                     }
 
-                    foreachcount++; // foreach 돈 횟수++
-
-                    if (foreachcount < 8) // 만약 아직 8번을 돌지 못했다면?
-                    {
-                        count++; // 다음 인덱스 번호로 넘어가기
-                    }
-                    else // 만약 8번 돌았다면?
-                    {
-                        break; // foreach문 종료
-                    }
+                    count++;
                 }
-                savecount = count; // 지금까지 돈 횟수 저장
                 return 0;
             }
 
@@ -190,7 +164,7 @@ namespace TestRpgGame
         public void WpItemIsTakeScript() // 인벤토리 -  장착한 무기 아이템 스크립트 제작
         {
             Console.WriteLine(" [ 장착한 아이템 ]\n");
-            Console.WriteLine(" [ 무기 ]");
+            Console.WriteLine(" [ 무기 ]\n");
             count = 1;
             foreach (WeaponItem item in items)
             {
@@ -246,17 +220,10 @@ namespace TestRpgGame
             else // 상점 판매 페이지
             {
                 count = 1; 
-                foreachcount = 0; 
-                if (items.Count <= savecount) savecount = 0; 
 
                 foreach (WeaponItem item in items)               
                 {
-                    if (count <= savecount) 
-                    {
-                        count++;
-                        continue; 
-                    }
-
+                    
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
                     {
                         item.IDX = count;
@@ -265,15 +232,13 @@ namespace TestRpgGame
                         ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(12, (item.Price / 100 * 85) + "G (85%)\n"); // 가격 + 색상 함수
-                        foreachcount++;
+                        
                     }
                     else item.IDX = 0;
 
-                    if (foreachcount < 8) count++;
-                    else break;
-                   
+                    count++;
+
                 }
-                savecount = count; // 지금까지 돈 횟수 저장
                 return count - 1;
             }
         }

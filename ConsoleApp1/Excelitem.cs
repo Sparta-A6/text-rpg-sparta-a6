@@ -26,8 +26,6 @@ namespace TestRpgGame
         {
         }
 
-
-
         public void start()
         {
             try
@@ -38,9 +36,9 @@ namespace TestRpgGame
                 //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  // 바탕화면 경로
                 //string path = Path.Combine(desktopPath, "Excel.xlsx");
 
-                string filePath = Path.GetFullPath("./Item/") + "List2.xlsx";
+                string filePath = Path.GetFullPath("./Item/") + "List3.xlsx";
 
-                Console.WriteLine(Path.GetFullPath("./Item/") + "List2.xlsx");
+                Console.WriteLine(Path.GetFullPath("./Item/") + "List3.xlsx");
 
                 excelApp = new Excel.Application();                             // 엑셀 어플리케이션 생성
                 workBook = excelApp.Workbooks.Open(filePath);                       // 워크북 열기

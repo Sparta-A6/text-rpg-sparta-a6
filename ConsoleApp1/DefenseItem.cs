@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +39,7 @@ namespace TestRpgGame
         bool[] itemistake;
 
         int[] itemidx;
+        public static string itemSet;
 
         // 배열 사이즈 제작
         public void ArrSizeMake(int size)
@@ -84,11 +86,28 @@ namespace TestRpgGame
         }
         public static void ItemTakeInTrue(int choice) // 아이템을 착용 할 경우 True로 바꿔주는 함수
         {
-            foreach (DefenseItem item in DpItem)
+            foreach (DefenseItem item in DpItem) // 장착할 아이템 찾아서 장착
             {
                 if (choice == item.IDX)
                 {
                     item.IsTake = !item.IsTake;
+                    itemSet = item.Set;
+                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.IsTake);
+                    Console.WriteLine(itemSet);
+                    Console.ReadLine();
+                }
+            }
+
+            foreach (DefenseItem item in DpItem) // 장착했던 아이템 찾아서 장착해제
+            {
+                if ((choice != item.IDX) && (itemSet == item.Set) && (item.IsTake == true))
+                {
+                    Console.WriteLine(item.Name);
+                    Console.WriteLine(item.IsTake);
+                    item.IsTake = !item.IsTake;
+                    Console.WriteLine(item.IsTake);
+                    Console.ReadLine();
                 }
             }
         }
@@ -151,8 +170,7 @@ namespace TestRpgGame
 
         public void DpItemIsTakeScript() // 인벤토리 -  장착한 방어구 아이템 스크립트 제작
         {
-            Console.WriteLine(" [ 장착한 아이템 ]\n");
-            Console.WriteLine(" [ 방어구 ]");
+            Console.WriteLine(" [ 방어구 ] \n");
             int count = 1;
             foreach (DefenseItem item in DpItem)
             {
@@ -163,7 +181,7 @@ namespace TestRpgGame
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"  - {item.Name}");  // 이름
                     ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
-                    Console.Write($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                    Console.WriteLine($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | \n");  // 상세 정보
                     Console.ForegroundColor = ConsoleColor.Black;
                     count++;
                 }
@@ -199,9 +217,10 @@ namespace TestRpgGame
                             Console.Write("     ");
                         }
 
-                        Console.Write($"\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                        Console.WriteLine($"\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | \n");  // 상세 정보
                         count++;
                     }
+                    else item.IDX = 0;
                 }
                 return count - 1;
             }

@@ -16,11 +16,11 @@ namespace TestRpgGame
         string[] VillageChoice = { "플레이어 정보 (PlayerInfo)", "인벤토리 (Inventory)", "상점 (Shop)", "여관 (Inn)", "던전 (Dungeon)", "주변 탐색(LookAround)" };
         string[] ShopChoice = { "상점에서 나가기 (Village)", "아이템 구매", "아이템 판매" };
         string[] InnChoice = { "여관에서 나가기 (Village)", "휴식하기" };
-        string[] InventoryChoice = { "인벤토리 닫기 (Close)", "아이템 장착관리" };
+        string[] InventoryChoice = { "인벤토리 닫기 (Close)", "아이템 장착관리", "아이템 사용" };
         string[] DungeonChoice = { "마을로 돌아가기 (Village)", "던전으로 진입" };
         string[] PlayerInfoChoice = { "정보 그만보기 (Close)" };
 
-        string[] InvenItemChoice = { "아이템 장착관리 취소" };
+        string[] InvenItemChoice = { "인벤토리로 돌아가기"};
         string[] ShopBuyChoice = { "아이템 구매 취소" };
         string[] ShopSellChoice = { "아이템 판매 취소" };
         string[] InnRestChoice = { "마을로 돌아가기 ( Village )" };
@@ -36,7 +36,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < VillageChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i+1) + ". ");
                 Console.WriteLine($"{VillageChoice[i]}");
             }
         }
@@ -44,15 +44,16 @@ namespace TestRpgGame
         {
             for (int i = 0; i < ShopChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i ) + ". ");
                 Console.WriteLine($"{ShopChoice[i]}");
             }
+            ColorChange.ColorWriteLine(8, " 9. 카테고리 변경");
         }
         public void InnScript()
         {
             for (int i = 0; i < InnChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{InnChoice[i]}");
             }
         }
@@ -60,7 +61,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < InventoryChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{InventoryChoice[i]}");
             }
         }
@@ -68,7 +69,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < DungeonChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{DungeonChoice[i]}");
             }
         }
@@ -76,7 +77,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < PlayerInfoChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{PlayerInfoChoice[i]}");
             }
         }
@@ -85,31 +86,35 @@ namespace TestRpgGame
         {
             for (int i = 0; i < InvenItemChoice.Length; i++)
             {
-                Console.Write("\n " + (i) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{InvenItemChoice[i]}");
+
+                ColorChange.ColorWriteLine(8, " 9. 카테고리 변경");
             }
         }
         public void ShopBuyScript()
         {
             for (int i = 0; i < ShopBuyChoice.Length; i++)
             {
-                Console.Write("\n " + (i) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{ShopBuyChoice[i]}");
             }
+            
         }
         public void ShopSellScript()
         {
             for (int i = 0; i < ShopSellChoice.Length; i++)
             {
-                Console.Write("\n " + (i) + ". ");
+                Console.Write(" " + (i) + ". ");
                 Console.WriteLine($"{ShopSellChoice[i]}");
             }
+            
         }
         public void InnRestScript()
         {
             for (int i = 0; i < InnRestChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i + 1) + ". ");
                 Console.WriteLine($"{InnRestChoice[i]}");
             }
         }
@@ -117,7 +122,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < DungeonInChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i + 1) + ". ");
                 Console.WriteLine($"{DungeonInChoice[i]}");
             }
         }
@@ -125,7 +130,7 @@ namespace TestRpgGame
         {
             for (int i = 0; i < DungeonOutChoice.Length; i++)
             {
-                Console.Write("\n " + (i + 1) + ". ");
+                Console.Write(" " + (i + 1) + ". ");
                 Console.WriteLine($"{DungeonOutChoice[i]}");
             }
         }

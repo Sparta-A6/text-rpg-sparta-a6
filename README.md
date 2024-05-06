@@ -3,8 +3,7 @@
 
 
 ### 프로젝트 이름 
-## ${\Zombie: Echoes of Survival ( 좀비 아포칼립스 : 생존의 메아리 ){\color{red}Red}}$
-
+## ${/{\color{red}Zombie: Echoes of Survival( 좀비 아포칼립스 : 생존의 메아리 )}}$
 
 ### 프로젝트 소개
 ### 좀비로 가득찬 서울, 당신은 홀로 살아남았다.

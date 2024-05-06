@@ -8,7 +8,7 @@ namespace TestRpgGame
 {
     internal class DefenseItem
     {
-        public List<DefenseItem> DpItem = new List<DefenseItem>();  // 방어 아이템
+        public static List<DefenseItem> DpItem = new List<DefenseItem>();  // 방어 아이템
         public DefenseItem(string name, string desc, bool isHave, bool isTake, int adstat, int dpstat, int price, string set, int idx)
         {
             Name = name; // 아이템 이름
@@ -53,23 +53,181 @@ namespace TestRpgGame
                 itemidx[i] = i + 1;
             }
         }
-
-        public void MakeItemScript()
+        public static void ItemHaveInTrue(int choice, int mapNum) // 아이템을 구매 할 경우 True로 바꿔주는 함수
         {
-            Console.WriteLine("제작함수 진입");
-            int count = 1;
-            foreach (DefenseItem DpItem in DpItem)
+            foreach (DefenseItem item in DpItem)
             {
-                Console.WriteLine($"for문 진입 {count}");
-                DpItem.IDX = count;
-                Console.Write(" " + count + ". ");  // 번호
-                Console.Write(DpItem.Name);  // 이름
-                Console.Write(DpItem.Desc + "\n\t       | 공격력 + " + DpItem.ADStat + "  | 방어력 + " + DpItem.DPStat + " | " + DpItem.Price + "G\n");  // 상세 정보
-                count++;
+                if ((choice == item.IDX) && (Player.gold >= item.Price) && (mapNum == 13)) // 구매할 경우
+                {
+                    item.IsHave = !item.IsHave;
+                    Player.gold -= item.Price;
+
+                    DefaultScript.IsCanBuy = true;
+                    DefaultScript.IsBuy = true;
+                    DefaultScript.ItemName = item.Name;
+                    DefaultScript.ItemPrice = item.Price;
+                }
+                else if ((choice == item.IDX) && (Player.gold < item.Price) && (mapNum == 13)) // 구매할 때 돈이 부족한 경우
+                {
+                    DefaultScript.IsCanBuy = false;
+                }
+                else if ((choice == item.IDX) && (mapNum == 23)) // 아이템을 판매할 경우 
+                {
+                    item.IsHave = !item.IsHave;
+                    Player.gold += item.Price / 100 * 85;
+
+                    DefaultScript.IsSell = true;
+                    DefaultScript.ItemName = item.Name;
+                    DefaultScript.ItemPrice = item.Price / 100 * 85;
+                }
+            }
+        }
+        public static void ItemTakeInTrue(int choice) // 아이템을 착용 할 경우 True로 바꿔주는 함수
+        {
+            foreach (DefenseItem item in DpItem)
+            {
+                if (choice == item.IDX)
+                {
+                    item.IsTake = !item.IsTake;
+                }
             }
         }
 
-        // 초기설정 : 무기 아이템 상점 리스트에 집어넣기
+        public int DpItemInShopScript(int mapNum) // 상점 장비 아이템 스크립트 제작
+        {
+            if (mapNum == 23) // 아이템 판매 페이지
+            {
+                DpItemInHaveScript(mapNum);
+                return 0;
+            }
+
+            if (mapNum == 13) // 아이템 구매 페이지
+            {
+
+                int count = 1;
+                foreach (DefenseItem item in DpItem)
+                {
+                    if (item.IsHave == false)
+                    {
+                        item.IDX = count;
+                        Console.Write(" " + count + ". ");  // 번호
+                        Console.Write(item.Name);  // 이름
+                        ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        Console.Write($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                        ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
+                        count++;
+                    }
+                    else item.IDX = 0;
+                }
+                return count - 1;
+            }
+
+            else  // 상점 페이지
+            {
+                ColorChange.ColorWriteLine(8, "  ◀   [ 방어구 ]   ▶      \n");
+
+                int count = 1;
+                foreach (DefenseItem item in DpItem)
+                {
+                    item.IDX = count;
+                    Console.Write("  - " + item.Name);  // 이름
+                    ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    Console.Write($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                    if (item.IsHave == true)
+                    {
+                        ColorChange.ColorWriteLine(8, "구매완료\n"); // 구매완료
+                    }
+                    else
+                    {
+                        ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
+                    }
+                    count++;
+                }
+                return 0;
+            }
+
+
+        }
+
+        public void DpItemIsTakeScript() // 인벤토리 -  장착한 방어구 아이템 스크립트 제작
+        {
+            Console.WriteLine(" [ 장착한 아이템 ]\n");
+            Console.WriteLine(" [ 방어구 ]");
+            int count = 1;
+            foreach (DefenseItem item in DpItem)
+            {
+                item.IDX = count;
+                // 가지고 있는 아이템만 생성
+                if ((item.IsHave == true) && (item.IsTake == true))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"  - {item.Name}");  // 이름
+                    ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    Console.Write($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    count++;
+                }
+            }
+        }
+        public int DpItemInHaveScript(int mapNum) //  아이템 장착, 상점 판매 - 소유한 장비 아이템 스크립트 제작
+        {
+            Console.WriteLine(" [ 방어구 아이템 ]\n");
+
+            if (mapNum == 12) // 인벤토리 장착 페이지
+            {
+                int count = 1;
+                foreach (DefenseItem item in DpItem)
+                {
+                    if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
+                    {
+                        item.IDX = count;
+
+                        Console.Write(" " + count + ". ");
+
+                        if (item.IsTake == true) // 아이템을 착용하고 있다면 E 표시
+                        {
+                            ColorChange.ColorWrite(10, item.Name);  // 이름
+                            ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            Console.Write(item.Desc);
+                            ColorChange.ColorWrite(10, $" [장착중 : {item.Set}] ");
+                        }
+                        else
+                        {
+                            Console.Write(item.Name);  // 이름
+                            ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            Console.Write(item.Desc);
+                            Console.Write("     ");
+                        }
+
+                        Console.Write($"\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                        count++;
+                    }
+                }
+                return count - 1;
+            }
+            else // 상점 판매 페이지
+            {
+                int count = 1;
+                foreach (DefenseItem item in DpItem)
+                {
+                    item.IDX = count;
+                    if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
+                    {
+                        item.IDX = count;
+                        Console.Write(" " + count + ". ");  // 번호
+                        Console.Write(item.Name);  // 이름
+                        ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        Console.Write($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | ");  // 상세 정보
+                        ColorChange.ColorWriteLine(12, (item.Price / 100 * 85) + "G (85%)\n"); // 가격 + 색상 함수
+                        count++;
+                    }
+                    else item.IDX = 0;
+                }
+                return count - 1;
+            }
+        }
+
+        // 초기설정 : 장비 아이템 상점 리스트에 집어넣기
         public void DpItemInShopList(string name, int ad, int dp, string set, int price, string desc, int num)
         {
             DpItem.Add(new DefenseItem(name, desc, itemishave[num], itemistake[num], ad, dp, price, set, itemidx[num]));

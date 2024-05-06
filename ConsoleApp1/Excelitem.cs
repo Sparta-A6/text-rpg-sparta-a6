@@ -22,7 +22,7 @@ namespace TestRpgGame
         static Excel.Workbook workBook = null;
         static Excel.Worksheet workSheet = null;
 
-        public Excelitem(string name, string desc, bool isHave, bool isTake, int adstat, int dpstat, int price, string set, int idx)
+        public Excelitem()
         {
         }
 
@@ -38,9 +38,9 @@ namespace TestRpgGame
                 //string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);  // 바탕화면 경로
                 //string path = Path.Combine(desktopPath, "Excel.xlsx");
 
-                string filePath = Path.GetFullPath("./") + "ItemList.xlsx";
+                string filePath = Path.GetFullPath("./Item/") + "List2.xlsx";
 
-                Console.WriteLine(Path.GetFullPath("./") + "ItemList.xlsx");
+                Console.WriteLine(Path.GetFullPath("./Item/") + "List2.xlsx");
 
                 excelApp = new Excel.Application();                             // 엑셀 어플리케이션 생성
                 workBook = excelApp.Workbooks.Open(filePath);                       // 워크북 열기
@@ -83,12 +83,33 @@ namespace TestRpgGame
 
             }
         }
+        // 무기 아이템 제작
+        void MakeSheet2Item(Excel.Range range)
+        {
+            Console.WriteLine(range.Rows.Count);
+            item.ArrSizeMake(range.Rows.Count);
+
+            for (int row = 1; row <= 14; row++) // 가져온 행 만큼 반복
+            {
+                string Ename = (string)(range.Cells[row, 1] as Excel.Range).Value2;
+                int Ead = (int)(range.Cells[row, 2] as Excel.Range).Value2;
+                int Edp = (int)(range.Cells[row, 3] as Excel.Range).Value2;
+                int Eprice = (int)(range.Cells[row, 4] as Excel.Range).Value2;
+                string Edesc = (string)(range.Cells[row, 5] as Excel.Range).Value2;
+
+                item.WpItemInShopList(Ename, Ead, Edp, Eprice, Edesc, row - 1);
+
+                Console.WriteLine($"무기 아이템 {row}개 완료");
+            }
+        }
+
         // 사용 아이템 제작
         void MakeSheet1Item(Excel.Range range)
         {
-            UseItem.ArrSizeMake(range.Rows.Count);
+            Console.WriteLine(range.Rows.Count);
+            useItem.ArrSizeMake(range.Rows.Count);
 
-            for (int row = 1; row <= range.Rows.Count; row++) // 가져온 행 만큼 반복
+            for (int row = 1; row <= 4; row++) // 가져온 행 만큼 반복
             {
                 string Ename = (string)(range.Cells[row, 1] as Excel.Range).Value2;
                 int Ehp = (int)(range.Cells[row, 2] as Excel.Range).Value2;
@@ -96,19 +117,22 @@ namespace TestRpgGame
                 int Eprice = (int)(range.Cells[row, 4] as Excel.Range).Value2;
                 string Edesc = (string)(range.Cells[row, 5] as Excel.Range).Value2;
 
-                UseItem.UseItemInShopList(Ename, Ehp, Eip, Eprice, Edesc, row - 1);
+                useItem.UseItemInShopList(Ename, Ehp, Eip, Eprice, Edesc, row - 1);
 
-                Console.WriteLine($"아이템 {row}개 완료");
+                Console.WriteLine($"소모 아이템 {row}개 완료");
             }
         }
 
         // 방어구 아이템 제작
         void MakeSheet3Item(Excel.Range range)
         {
-            DpItem.ArrSizeMake(range.Rows.Count);
+            Console.WriteLine(range.Rows.Count);
+            int DebugRangecount = 21;
+            DpItem.ArrSizeMake(DebugRangecount);
 
-            for (int row = 1; row <= range.Rows.Count; row++) // 가져온 행 만큼 반복
+            for (int row = 1; row <= DebugRangecount; row++) // 가져온 행 만큼 반복 + 오류때문에 값 지정했음.
             {
+                Console.WriteLine(DebugRangecount);
                 string Ename = (string)(range.Cells[row, 1] as Excel.Range).Value2;
                 int Ead = (int)(range.Cells[row, 2] as Excel.Range).Value2;
                 int Edp = (int)(range.Cells[row, 3] as Excel.Range).Value2;
@@ -118,7 +142,7 @@ namespace TestRpgGame
 
                 DpItem.DpItemInShopList(Ename, Ead, Edp, Eset, Eprice, Edesc, row - 1);
 
-                Console.WriteLine($"아이템 {row}개 완료");
+                Console.WriteLine($"장비 아이템 {row}개 완료");
             }
         }
 

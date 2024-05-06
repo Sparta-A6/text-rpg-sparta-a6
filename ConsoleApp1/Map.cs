@@ -26,9 +26,9 @@ namespace TestRpgGame
 
     public enum ItemKategorie
     {
-        Weapon,
-        Armor,
-        Used
+        Weapon = 1,
+        Armor = 2,
+        Used = 3
     }
 
     internal class Map
@@ -40,6 +40,7 @@ namespace TestRpgGame
         DefenseItem DpItem = new DefenseItem("", "", false, false, 0, 0, 0, "", 0);
         UseItem useItem = new UseItem("-", "-", false, 0, 0, 0, 0, 0);
 
+        public static ItemKategorie itemKategorie = ItemKategorie.Weapon;
 
         public int ScriptCount; //선택지 개수 줄이는 용도
 
@@ -105,22 +106,60 @@ namespace TestRpgGame
                     break;
 
                 case 3: // 상점
+
                     defaultScript.ShopScript();
-                    item.WpItemInShopScript(choice); // 상점 아이템
+
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            item.WpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            DpItem.DpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            useItem.UseItemInShopScript(choice);
+                            break;
+                    }
+
+                     // 상점 아이템
                     LimitLine();
                     choiceScript.ShopScript();
                     break;
 
                 case 13: // 상점 구매
                     defaultScript.ShopBuyScript();
-                    ScriptCount = item.WpItemInShopScript(choice); // 값 반환 (Case Break용)
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            ScriptCount = useItem.UseItemInShopScript(choice);
+                            break;
+                    }
+                     // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.ShopBuyScript();
                     break;
 
                 case 23: // 상점 판매
                     defaultScript.ShopSellScript();
-                    ScriptCount = item.WpItemInHaveScript(choice); // 값 반환 (Case Break용)
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInHaveScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInHaveScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            Console.WriteLine(" 소모 아이템은 판매할 수 없습니다.\n");
+                            break;
+                    } // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.ShopSellScript();
                     break;
@@ -184,16 +223,7 @@ namespace TestRpgGame
             Console.WriteLine("-----------------------------------------------------");
         } // 가름줄
 
-        public void ItemInList()
-        {
-            item.WpItemInShopList();
-            useItem.UseItemInShopList();
-        }
-
-        //public void Count()
-        //{
-        //    ChoiceLink.MakeScriptCount = (char)ScriptCount;
-        //}
+       
      
     }
 

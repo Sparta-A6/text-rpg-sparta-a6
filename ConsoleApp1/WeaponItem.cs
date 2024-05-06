@@ -11,8 +11,6 @@ namespace TestRpgGame
     {
         public static List<WeaponItem> items = new List<WeaponItem>();  // 기본 무기 아이템
 
-
-
         public WeaponItem(string name, String desc, bool isHave, bool isTake, int adstat, int dpstat, int price, int idx)
         {
             Name = name; // 아이템 이름
@@ -35,27 +33,31 @@ namespace TestRpgGame
 
         // 무기 아이템
 
-        string[] itemname = { "장갑", "목검", "후라이팬", "야구배트", "빠루", "식칼", "나이프", "소방도끼" };
-        string[] itemdesc = {
-            "맨주먹보단 낫습니다.",
-            "무언가를 썰기보단 때리는 용도입니다.",
-            "단단합니다.",
-            "깡!",
-            "어디서든 사용할 수 있습니다.",
-            "무언가를 토막내기에는 이만한 것이 없습니다.",
-            "가볍고, 날카로우며, 빠릅니다.",
-            "빨간 날 위로 끈적한 것이 묻어있습니다." };
 
-        bool[] itemishave = { true, false, false, false, false, false, false, false };
-        bool[] itemistake = { true, false, false, false, false, false, false, false };
 
-        int[] itemadstat = { 10, 15, 15, 15, 20, 25, 25, 30 };
-        int[] itemdpstat = { 0, 0, 0, 0, 0, 0, 0, 0 };
+        bool[] itemishave;
+        bool[] itemistake;
 
-        int[] itemprice = { 500, 1000, 1200, 1000, 1500, 2000, 2000, 2500 };
-        int[] itemidx = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        int[] itemidx;
 
-    
+        public int count = 1;
+        public int savecount = 0;
+        public int foreachcount = 0;
+
+        // 배열 사이즈 제작
+        public void ArrSizeMake(int size)
+        {
+            itemishave = new bool[size];
+            itemistake = new bool[size];
+            itemidx = new int[size];
+
+            for (int i = 0; i < size; i++)
+            {
+                itemishave[i] = false;
+                itemistake[i] = false;
+                itemidx[i] = i + 1;
+            }
+        }
 
 
         public static void ItemHaveInTrue(int choice, int mapNum) // 아이템을 구매 할 경우 True로 바꿔주는 함수
@@ -108,34 +110,56 @@ namespace TestRpgGame
             if (mapNum == 13) // 아이템 구매 페이지
             {
 
-                int count = 1;
+                count = 1;
+
                 foreach (WeaponItem item in items)
                 {
                     if (item.IsHave == false)
                     {
-                        item.IDX = count;
+                        item.IDX = count + savecount;
                         Console.Write(" " + count + ". ");  // 번호
                         Console.Write(item.Name);  // 이름
-                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
-                        count++;
+
+                        if (count < 8)
+                        {
+                            count++;
+                        }
+                        else
+                        {
+                            savecount = count;
+                            break;
+                        }
                     }
                     else item.IDX = 0;
                 }
                 return count - 1;
             }
+
             else  // 상점 페이지
             {
                 ColorChange.ColorWriteLine(8, "  ◀   [ 무기류 ]   ▶      \n");
+                ColorChange.ColorWriteLine(8, "              \n");
 
-                int count = 1;
+                count = 1; // 아이템 인덱스에 넣어줄 변수 (항상 초기화)
+                foreachcount = 0; // 아이템 스크립트 8회만 나오도록 카운트 하는 변수 (항상 초기화)
+                if (items.Count <= savecount) savecount = 0; //만약 나와야 할 아이템이 더 없다면 = 다시 1부터 꺼내게 하는 초기화
+
                 foreach (WeaponItem item in items)
                 {
+                    if(count <= savecount) //만약 아이템을 이전에 열어본 적이 있다면, 스크립트를 그만큼 건너뛰게 만듬
+                    {
+                        count++;
+                        continue; // 8/16/24회 지나갈 때까지 돌아감.
+                    }
+
                     item.IDX = count;
                     Console.Write("  - " + item.Name);  // 이름
-                    ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                     Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
+
                     if (item.IsHave == true)
                     {
                         ColorChange.ColorWriteLine(8, "구매완료\n"); // 구매완료
@@ -144,8 +168,19 @@ namespace TestRpgGame
                     {
                         ColorChange.ColorWriteLine(6, item.Price + "G\n"); // 가격 + 색상 함수
                     }
-                    count++;
+
+                    foreachcount++; // foreach 돈 횟수++
+
+                    if (foreachcount < 8) // 만약 아직 8번을 돌지 못했다면?
+                    {
+                        count++; // 다음 인덱스 번호로 넘어가기
+                    }
+                    else // 만약 8번 돌았다면?
+                    {
+                        break; // foreach문 종료
+                    }
                 }
+                savecount = count; // 지금까지 돈 횟수 저장
                 return 0;
             }
 
@@ -156,7 +191,7 @@ namespace TestRpgGame
         {
             Console.WriteLine(" [ 장착한 아이템 ]\n");
             Console.WriteLine(" [ 무기 ]");
-            int count = 1;
+            count = 1;
             foreach (WeaponItem item in items)
             {
                 item.IDX = count;
@@ -165,7 +200,7 @@ namespace TestRpgGame
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("  - " + item.Name);  // 이름
-                    ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                    ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                     Console.WriteLine(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | \n");  // 상세 정보
                     Console.ForegroundColor = ConsoleColor.Black;
                     count++;
@@ -178,7 +213,7 @@ namespace TestRpgGame
             
             if (mapNum == 12) // 인벤토리 장착 페이지
             {
-                int count = 1;
+                count = 1;
                 foreach (WeaponItem item in items)
                 {
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
@@ -190,14 +225,14 @@ namespace TestRpgGame
                         if (item.IsTake == true) // 아이템을 착용하고 있다면 E 표시
                         {
                             ColorChange.ColorWrite(10, item.Name);  // 이름
-                            ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                             Console.Write(item.Desc);
                             ColorChange.ColorWrite(10, " [장착중 : 무기] ");
                         }
                         else
                         {
                             Console.Write(item.Name);  // 이름
-                            ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                            ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                             Console.Write(item.Desc);
                             Console.Write("     ");
                         }
@@ -210,60 +245,46 @@ namespace TestRpgGame
             }
             else // 상점 판매 페이지
             {
-                int count = 1;
+                count = 1; 
+                foreachcount = 0; 
+                if (items.Count <= savecount) savecount = 0; 
+
                 foreach (WeaponItem item in items)               
                 {
-                    item.IDX = count;
+                    if (count <= savecount) 
+                    {
+                        count++;
+                        continue; 
+                    }
+
                     if (item.IsHave == true) // 가지고 있는 아이템만 나오도록
                     {
                         item.IDX = count;
                         Console.Write(" " + count + ". ");  // 번호
                         Console.Write(item.Name);  // 이름
-                        ItemSort(item.Name.Length);  // 간격 맞춤용 함수
+                        ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(12, (item.Price / 100 * 85) + "G (85%)\n"); // 가격 + 색상 함수
-                        count++;
+                        foreachcount++;
                     }
                     else item.IDX = 0;
+
+                    if (foreachcount < 8) count++;
+                    else break;
+                   
                 }
+                savecount = count; // 지금까지 돈 횟수 저장
                 return count - 1;
             }
         }
 
-        // 아이템 글씨 간격 맞추는 함수
-        public static void ItemSort(int i)
-        {
-            switch (i)
-            {
-                case 1:
-                    Console.Write("        | ");
-                    break;
-                case 2:
-                    Console.Write("       | ");
-                    break;
-                case 3:
-                    Console.Write("     | ");
-                    break;
-                case 4:
-                    Console.Write("   | ");
-                    break;
-                case 5:
-                    Console.Write(" | ");
-                    break;
-                case 6:
-                    Console.Write("| ");
-                    break;
-            }
-        }
+        
 
 
         // 초기설정 : 무기 아이템 상점 리스트에 집어넣기
-        public void WpItemInShopList()
+        public void WpItemInShopList(string name, int ad, int dp, int price, string desc, int num)
         {
-            for (int i = 0; i < itemname.Length; i++) // 무기 아이템
-            {
-                items.Add(new WeaponItem (itemname[i], itemdesc[i], itemishave[i], itemistake[i], itemadstat[i], itemdpstat[i], itemprice[i], itemidx[i]));
-            }
+            items.Add(new WeaponItem(name, desc, itemishave[num], itemistake[num], ad, dp, price, itemidx[num]));
 
         } 
     }

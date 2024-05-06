@@ -42,6 +42,7 @@ namespace TestRpgGame
                 Console.Write("\n " + (i ) + ". ");
                 Console.WriteLine($"{ShopChoice[i]}");
             }
+            Console.WriteLine(" 다음 페이지로");
         }
         public void InnScript()
         {
@@ -91,6 +92,7 @@ namespace TestRpgGame
                 Console.Write("\n " + (i) + ". ");
                 Console.WriteLine($"{ShopBuyChoice[i]}");
             }
+            Console.WriteLine(" 다음 페이지로");
         }
         public void ShopSellScript()
         {
@@ -99,6 +101,7 @@ namespace TestRpgGame
                 Console.Write("\n " + (i) + ". ");
                 Console.WriteLine($"{ShopSellChoice[i]}");
             }
+            Console.WriteLine(" 다음 페이지로");
         }
         public void InnRestScript()
         {

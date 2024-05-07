@@ -13,8 +13,8 @@ namespace TestRpgGame
 
         public string playerName = " 지원 ";
         public int level = 1;
-        public int attack = 10;
-        public int defense = 10;
+        public int attack = 10 + ItemAttack;
+        public int defense = 10 + ItemDefense;
 
         public static int ItemAttack;
         public static int ItemDefense;

@@ -267,7 +267,6 @@ namespace TestRpgGame
                 Player.gold += foundGold;
                 Console.Write("-----------------------------------------------------");
                 Console.ReadLine();
-                Console.WriteLine("-----------------------------------------------------");
                 Console.WriteLine(" 마을로 돌아갑니다.");
                 Console.WriteLine("-----------------------------------------------------");
                 Console.ReadLine();

@@ -11,8 +11,9 @@ namespace TestRpgGame
         Map map = new Map();
         Excelitem excelitem = new Excelitem();
         ChoiceLink choiceLink = new ChoiceLink();
-        
-        
+        IfDied ifDied = new IfDied();
+
+
         public int playerChoice;
         bool isGamePlay = true;
         bool isCan = true;
@@ -29,10 +30,16 @@ namespace TestRpgGame
             
             excelitem.start();
 
-            Console.ReadLine();
+            Console.WriteLine("\n     로딩 완료! ");
+            Console.WriteLine("플레이를 위해 아무키나 눌러주세요.");
+            Console.ReadKey();
 
             while (isGamePlay) // 게임 플레이중이라면 반복할 부분 
             {
+                if(Player.infection >= 100) 
+                {
+                    ifDied.IsDied();
+                }
                 map.makeMapScript(mapNum); // 맵 이름스크립트 출력
                 map.mapInfoScript(mapNum); // 맵 정보 (기본 스크립트, 선택지) 출력
                 

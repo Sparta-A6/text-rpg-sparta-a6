@@ -38,7 +38,8 @@ namespace TestRpgGame
 
                 string filePath = Path.GetFullPath("./Item/") + "List3.xlsx";
 
-                Console.WriteLine(Path.GetFullPath("./Item/") + "List3.xlsx");
+                //Console.WriteLine(Path.GetFullPath("./Item/") + "List3.xlsx");
+                Console.Write("\n         로딩 중 ");
 
                 excelApp = new Excel.Application();                             // 엑셀 어플리케이션 생성
                 workBook = excelApp.Workbooks.Open(filePath);                       // 워크북 열기
@@ -84,7 +85,8 @@ namespace TestRpgGame
         // 무기 아이템 제작
         void MakeSheet2Item(Excel.Range range)
         {
-            Console.WriteLine(range.Rows.Count);
+            Console.Write(". ");
+            //Console.WriteLine(range.Rows.Count);
             item.ArrSizeMake(range.Rows.Count);
 
             for (int row = 1; row <= 14; row++) // 가져온 행 만큼 반복
@@ -97,14 +99,15 @@ namespace TestRpgGame
 
                 item.WpItemInShopList(Ename, Ead, Edp, Eprice, Edesc, row - 1);
 
-                Console.WriteLine($"무기 아이템 {row}개 완료");
+                //Console.WriteLine($"무기 아이템 {row}개 완료");
             }
         }
 
         // 사용 아이템 제작
         void MakeSheet1Item(Excel.Range range)
         {
-            Console.WriteLine(range.Rows.Count);
+            Console.Write(". ");
+            //Console.WriteLine(range.Rows.Count);
             useItem.ArrSizeMake(range.Rows.Count);
 
             for (int row = 1; row <= 4; row++) // 가져온 행 만큼 반복
@@ -117,20 +120,21 @@ namespace TestRpgGame
 
                 useItem.UseItemInShopList(Ename, Ehp, Eip, Eprice, Edesc, row - 1);
 
-                Console.WriteLine($"소모 아이템 {row}개 완료");
+                //Console.WriteLine($"소모 아이템 {row}개 완료");
             }
         }
 
         // 방어구 아이템 제작
         void MakeSheet3Item(Excel.Range range)
         {
-            Console.WriteLine(range.Rows.Count);
+            Console.Write(". ");
+            //Console.WriteLine(range.Rows.Count);
             int DebugRangecount = 21;
             DpItem.ArrSizeMake(DebugRangecount);
 
             for (int row = 1; row <= DebugRangecount; row++) // 가져온 행 만큼 반복 + 오류때문에 값 지정했음.
             {
-                Console.WriteLine(DebugRangecount);
+                //Console.WriteLine(DebugRangecount);
                 string Ename = (string)(range.Cells[row, 1] as Excel.Range).Value2;
                 int Ead = (int)(range.Cells[row, 2] as Excel.Range).Value2;
                 int Edp = (int)(range.Cells[row, 3] as Excel.Range).Value2;
@@ -140,7 +144,7 @@ namespace TestRpgGame
 
                 DpItem.DpItemInShopList(Ename, Ead, Edp, Eset, Eprice, Edesc, row - 1);
 
-                Console.WriteLine($"장비 아이템 {row}개 완료");
+                //Console.WriteLine($"장비 아이템 {row}개 완료");
             }
         }
 

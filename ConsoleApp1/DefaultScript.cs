@@ -9,7 +9,7 @@ namespace TestRpgGame
 {
     public class DefaultScript
     {
-        Player Player = new Player();
+        Player player = new Player();
         Dia_School dia_School = new Dia_School();
 
         public static bool IsCanBuy = true;
@@ -148,8 +148,8 @@ namespace TestRpgGame
         //플레이어 정보 공개
         public void PlayerInfoValse()
         {
-            Console.WriteLine(" 이름 : " + Player.playerName);
-            Console.WriteLine(" 레벨 : " + Player.level);
+            Console.WriteLine(" 이름 : " + player.playerName);
+            Console.WriteLine(" 레벨 : " + player.level);
 
             Console.WriteLine();
 
@@ -192,9 +192,9 @@ namespace TestRpgGame
             Console.WriteLine();
 
 
-            Console.Write(" 공격력 : " + Player.attack);
+            Console.Write(" 공격력 : " + player.attack);
             ColorChange.ColorWriteLine(11, $" + {Player.ItemAttack} ");
-            Console.Write(" 방어력 : " + Player.defense);
+            Console.Write(" 방어력 : " + player.defense);
             ColorChange.ColorWriteLine(11, $" + {Player.ItemDefense} \n");
 
             Console.WriteLine(" 소지금 : " + Player.gold + " G \n");
@@ -217,11 +217,11 @@ namespace TestRpgGame
                 case 1:
                     Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
                     ColorChange.ColorWriteLine(2, "약간의 경험치를 획득했습니다.\n");
-                    Player.GainExperience(10);
+                    player.GainExperience(10);
 
                     ColorChange.ColorWriteLine(12, "아직은 괜찮습니다. 시간이 해결해 줄 것입니다.");
                     ColorChange.ColorWriteLine(12, $"현재 감염도 {Player.infection} / 100 \n");
-                    Player.GainInfection(10);
+                    player.GainInfection(10);
                     break;
 
                 case 2:
@@ -232,7 +232,7 @@ namespace TestRpgGame
 
                     ColorChange.ColorWriteLine(12, "조금 몸이 무거워진 느낌입니다.");
                     ColorChange.ColorWriteLine(12, $"현재 감염도 {Player.infection} / 100 \n");
-                    Player.GainInfection(10);
+                    player.GainInfection(10);
                     break;
 
 

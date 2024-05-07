@@ -13,7 +13,6 @@ C#-blue
 
 ### 
 
-
 ### 팀장 최지원  
 ### 팀원 이영대  
 ### 팀원 옥인
@@ -34,4 +33,5 @@ C#-blue
 ### 시퀀스 다이어그램
 ![팀프로젝트 코드 전체적인 흐름](https://github.com/Sparta-A6/text-rpg-sparta-a6/assets/167041031/344a2c07-9cde-4a7a-baf0-ec5219e88d71)
 
-### 
+### 아이템 리스트
+https://docs.google.com/spreadsheets/d/1NlKURMI7kiequN2x_Iqv3oG4bN6VMtH7xtZuNmz3Wl8/edit#gid=0

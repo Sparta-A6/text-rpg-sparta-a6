@@ -9,17 +9,17 @@ namespace TestRpgGame
 {
     public enum mapNum
     {
-        Village = 0,
+        School = 0,
         PlayerInfo = 1,
         Inventory = 2,
         Shop = 3,
-        Inn = 4,
+        Office = 4,
         Dungeon = 5,
         InvenItem = 12,
         ItemUse = 22,
         ShopBuy = 13,
         ShopSell = 23,
-        InnRest = 14,
+        Rest = 14,
         DungeonIn = 15,
         DungeonOut = 25,
         Lookround = 6,
@@ -76,7 +76,6 @@ namespace TestRpgGame
             Battle battle = new Battle(player, enemies);
             battle.StartBattle();
         }
-
 
         public void mapInfoScript(int choice) // 플레이어에게 세부 정보 제공 (맵 및 이벤트)
         {
@@ -220,13 +219,15 @@ namespace TestRpgGame
 
                 case 6:  // 주변 탐색
                     defaultScript.LookAroundScript();
+                    LimitLine();
                     choiceScript.LookAroundScript();
                     break;
 
                 case 16: // 주변 탐색 - 전투시작
                     defaultScript.BattleStartScript();
-                    Console.WriteLine("---------------------------------------");
-                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                    Console.WriteLine("-----------------------------------------------------");
+                    ColorChange.ColorWriteLine(12, "계속 진행하시려면 아무키나 입력해주세요");
+                    Console.WriteLine("-----------------------------------------------------");
                     Console.ReadLine();
                     StartBattle();
                     break;

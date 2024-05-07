@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -93,8 +94,12 @@ namespace TestRpgGame
                 if (choice == item.IDX)
                 {
                     item.IsTake = !item.IsTake;
+                    Player.ItemAttack = item.ADStat;
+                    Console.WriteLine(Player.ItemAttack);
+                    Console.WriteLine(item.Name);
+                    Console.ReadLine();
                 }
-                else if ((choice != item.IDX)&&(item.IsTake == true))
+                else if ((choice != item.IDX)&&(item.IsTake == true)) // 다른거 취소 시키는 함수
                 {
                     item.IsTake = !item.IsTake;
                 }
@@ -165,6 +170,7 @@ namespace TestRpgGame
         {
             Console.WriteLine(" [ 장착한 아이템 ]\n");
             Console.WriteLine(" [ 무기 ]\n");
+            
             count = 1;
             foreach (WeaponItem item in items)
             {
@@ -179,6 +185,7 @@ namespace TestRpgGame
                     Console.ForegroundColor = ConsoleColor.Black;
                     count++;
                 }
+                else item.IDX = 0;
             }
         }
         public int WpItemInHaveScript(int mapNum) //  아이템 장착, 상점 판매 - 소유한 장비 아이템 스크립트 제작
@@ -232,11 +239,9 @@ namespace TestRpgGame
                         ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                         Console.Write(item.Desc + "\n\t       | 공격력 + " + item.ADStat + "  | 방어력 + " + item.DPStat + " | ");  // 상세 정보
                         ColorChange.ColorWriteLine(12, (item.Price / 100 * 85) + "G (85%)\n"); // 가격 + 색상 함수
-                        
+                        count++;
                     }
                     else item.IDX = 0;
-
-                    count++;
 
                 }
                 return count - 1;

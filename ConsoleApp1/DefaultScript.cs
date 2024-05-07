@@ -10,6 +10,7 @@ namespace TestRpgGame
     public class DefaultScript
     {
         Player Player = new Player();
+        Dia_School dia_School = new Dia_School();
 
         public static bool IsCanBuy = true;
 
@@ -24,23 +25,19 @@ namespace TestRpgGame
 
         public void VillageScript()
         {
-            Console.WriteLine(" 낡은 마을의 전경이 보입니다.");
-            Console.WriteLine(" 사람이 많은 것은 아니나, 적지도 않습니다.");
-            Console.WriteLine(" 이곳에서 던전으로 들어가기 위한 활동을 할 수 있습니다. \n");
+            dia_School.SchoolRandomScript();
         }
         public void ShopScript()
         {
-            Console.WriteLine(" 상점 안에 들어왔습니다.");
-            Console.WriteLine(" 낡은 상점 내부는 모험가에게 필요한 물품만 판매하고 있습니다.");
+            Console.WriteLine(" 암시장 안에 들어왔습니다.");
+            Console.WriteLine(" 암시장 건물 안은 상당히 어둡습니다 .");
             Console.WriteLine(" 충분한 돈만 있다면 물건을 살 수 있습니다. \n");
         }
         public void InnScript()
         {
-            Console.WriteLine(" 여관 안은 조용합니다.");
-            Console.WriteLine(" 단돈 500G로 하룻밤 묵을 수 있습니다. (체력 전부 회복)\n");
+            Console.WriteLine(" 보건실 안은 조용합니다.");
+            Console.WriteLine(" 원한다면 이곳에서 쉬어도 될 것 같습니다. (체력 전부 회복)\n");
 
-            Console.WriteLine(" [ 보유골드 ]");
-            ColorChange.ColorWriteLine(6, $" {Player.gold} G\n");
         }
         public void InventoryScript()
         {
@@ -49,8 +46,8 @@ namespace TestRpgGame
         }
         public void DungeonScript()
         {
-            Console.WriteLine(" 던전은 무서워보입니다...");
-            Console.WriteLine(" 충분한 공격력과 방어력이 있어야 클리어 할 수 있을 것 같습니다. \n");
+            Console.WriteLine(" 사람은 때론 지치기 마련입니다.");
+            Console.WriteLine(" 휴식을 즐기는 것에는 역시 산책이 최고입니다. \n");
         }
         public void PlayerInfoScript()
         {
@@ -69,7 +66,7 @@ namespace TestRpgGame
             {
                 Player.PlusHp(ItemHP);
                 ColorChange.ColorWriteLine(10, $" {ItemName}을(를) 사용했습니다. ");
-                ColorChange.ColorWriteLine(10,  $"현재 체력 {Player.health} / 100 \n");
+                ColorChange.ColorWriteLine(10, $"현재 체력 {Player.currenthealth} / 100 \n");
                 IsUsed = false;
             }
         }
@@ -77,7 +74,12 @@ namespace TestRpgGame
         {
             if (IsCanBuy == true)
             {
-                Console.WriteLine(" 주인장은 아무런 관심이 없지만 당신은 양심적으로 구매하려고 합니다.\n");
+                Console.WriteLine(" 이 세상에서 물건을 구할 수 있는 곳은 한정되어 있습니다.");
+                Console.WriteLine(" 당신은 학교 뒤에 있는 개구멍을 통해 밖으로 나왔습니다.\n");
+
+                Console.WriteLine(" 개구멍과 이어진 지하철 통로를 통해서 들어온 곳은 암시장입니다.");
+                Console.WriteLine(" 어두운 지하철 통로에는 부랑자들과 사람들, 상인들이 있습니다.");
+                Console.WriteLine(" 한 상인은 여러가지 물건을 바닥에 늘어놓고 있습니다.\n");
 
                 if (IsBuy == true)
                 {
@@ -89,7 +91,7 @@ namespace TestRpgGame
             else
             {
                 Console.WriteLine(" \"이봐! 돈이 없잖아. 제대로 된 돈으로 들고 오라고.\" ");
-                Console.WriteLine(" 주인장은 거지새끼를 보는 것 마냥 당신을 보고 있습니다.\n");
+                Console.WriteLine(" 상인은 거지새끼를 보는 것 마냥 당신을 보고 있습니다.\n");
 
                 ColorChange.ColorWriteLine(12, " 돈이 없습니다.\n");
             }
@@ -100,7 +102,7 @@ namespace TestRpgGame
         }
         public void ShopSellScript()
         {
-            Console.WriteLine(" 주인장은 카운터에 늘어져있던 몸을 일으키면서 말합니다.\n");
+            Console.WriteLine(" 상인은 의심쩍은 눈은 그대로인 채로 당신을 바라보며 말합니다.\n");
             Console.WriteLine(" \"그래. 뭘 파시겠다고?\"");
             Console.WriteLine(" \"잘 쳐줄테니까 한번 보여줘 봐.\"\n");
 
@@ -111,32 +113,35 @@ namespace TestRpgGame
                 IsSell = false;
             }
 
-            Console.WriteLine(" [ 보유골드 ]"); 
+            Console.WriteLine(" [ 보유골드 ]");
             ColorChange.ColorWriteLine(6, $" {Player.gold} G\n");
 
             Console.WriteLine(" [ 아이템 판매 모드 ]\n");
         }
         public void InnRestScript()
         {
-            Console.WriteLine(" 방 안에 들어가자마자 침대 위에 쓰러진 당신은 그대로 편히 잠을 잡니다.");
+            Console.WriteLine(" 보건실 안에 들어가자마자 침대 위에 쓰러진 당신은 그대로 편히 잠을 잡니다.");
             Console.WriteLine(" 아침이 밝아오는 소리에 눈을 뜹니다.");
             Console.WriteLine(" 잘 쉬었던 것 같습니다.\n");
 
-            ColorChange.ColorWriteLine(10, " + 체력 최대치 회복\n");
+            ColorChange.ColorWriteLine(10, " + 체력 최대치 회복, 감염도 일부 치유\n");
+
+            Player.PlusHp(100);
+
         }
         public void DungeonInScript()
         {
-            Console.WriteLine(" 던전에 입장했습니다!\n");
+            Console.WriteLine(" 간단하게 산책을 즐겨봅니다.\n");
         }
         public void DungeonOutScript()
         {
-            Console.WriteLine(" 던전 클리어! \n");
+            Console.WriteLine(" 시간이 많이 지났으니 돌아갑니다. \n");
         }
 
         public void BattleStartScript()
         {
             Console.WriteLine("근처를 둘러보다 좀비들에게 발각되었습니다!!");
-            Console.WriteLine("좀비와의 전투에 돌입합니다.");
+            Console.WriteLine("좀비와의 전투에 돌입합니다.\n");
         }
 
 
@@ -146,27 +151,24 @@ namespace TestRpgGame
             Console.WriteLine(" 이름 : " + Player.playerName);
             Console.WriteLine(" 레벨 : " + Player.level);
 
-            Console.WriteLine(" 현재 체력 : " + Player.currenthealth + " / 100\n");
-
-
             Console.WriteLine();
 
             Player.PlayerHpGauge(); // 플레이어 체력게이지
 
             Console.Write(" 현재 체력 : ");
-            if (Player.health>=90)
+            if (Player.currenthealth >= 90)
             {
-                ColorChange.ColorWrite(11, Player.health);
+                ColorChange.ColorWrite(11, Player.currenthealth);
             }
-            else if ((Player.health <90)&&(Player.health>=50))
+            else if ((Player.currenthealth < 90) && (Player.currenthealth >= 50))
             {
-                ColorChange.ColorWrite(10, Player.health);
+                ColorChange.ColorWrite(10, Player.currenthealth);
             }
-            else if (Player.health < 50)
+            else if (Player.currenthealth < 50)
             {
-                ColorChange.ColorWrite(12, Player.health);
+                ColorChange.ColorWrite(12, Player.currenthealth);
             }
-                Console.Write(" / 100\n");
+            Console.Write(" / 100\n");
 
             Console.WriteLine();
 
@@ -175,23 +177,25 @@ namespace TestRpgGame
             Console.Write(" 현재 감염도 : ");
             if (Player.infection >= 70)
             {
-                ColorChange.ColorWrite(12, Player.infection);
+                ColorChange.ColorWrite(12, Player.infection + "%");
             }
             else if ((Player.infection < 70) && (Player.infection >= 30))
             {
-                ColorChange.ColorWrite(9, Player.infection+"%");
+                ColorChange.ColorWrite(9, Player.infection + "%");
             }
             else if (Player.infection < 30)
             {
-                ColorChange.ColorWrite(11, Player.infection);
+                ColorChange.ColorWrite(11, Player.infection + "%");
             }
             Console.Write(" / 100%\n");
 
             Console.WriteLine();
 
 
-            Console.WriteLine(" 공격력 : " + Player.attack);
-            Console.WriteLine(" 방어력 : " + Player.defense + "\n");
+            Console.Write(" 공격력 : " + Player.attack);
+            ColorChange.ColorWriteLine(11, $" + {Player.ItemAttack} ");
+            Console.Write(" 방어력 : " + Player.defense);
+            ColorChange.ColorWriteLine(11, $" + {Player.ItemDefense} \n");
 
             Console.WriteLine(" 소지금 : " + Player.gold + " G \n");
         }
@@ -199,34 +203,43 @@ namespace TestRpgGame
         public void LookAroundScript()
         {
             Console.WriteLine("앞에 무언가 보이는 것 같습니다");
-            Console.WriteLine("가까이 가서 확인해 보겠습니까?");
+            Console.WriteLine("가까이 가서 확인해 보겠습니까?\n");
 
         }
 
         public void FarmingStartScript()
         {
             Random random = new Random();
-            int randomNumber = random.Next(1, 3); 
+            int randomNumber = random.Next(1, 3);
 
-            if (randomNumber == 1)
+            switch (randomNumber)
             {
-                Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
-                Console.WriteLine("약간의 경험치를 획득했다.");
-                Player.GainExperience(10);
-            }
-            else if (randomNumber == 2)
-            {
-                int foundGold = random.Next(0, 201);
-                Console.WriteLine($"부패한 좀비의 시체 밑에서 무언가 반짝이고 있습니다.");
-                Console.WriteLine($"{foundGold}G를 발견했습니다!");
-                Player.gold += foundGold;
-            }          
-            else
-            {
+                case 1:
+                    Console.WriteLine("근처를 둘러 보았지만 아무것도 찾지 못했습니다..");
+                    ColorChange.ColorWriteLine(2, "약간의 경험치를 획득했습니다.\n");
+                    Player.GainExperience(10);
+
+                    ColorChange.ColorWriteLine(12, "아직은 괜찮습니다. 시간이 해결해 줄 것입니다.");
+                    ColorChange.ColorWriteLine(12, $"현재 감염도 {Player.infection} / 100 \n");
+                    Player.GainInfection(10);
+                    break;
+
+                case 2:
+                    int foundGold = random.Next(0, 201);
+                    Console.WriteLine($"부패한 좀비의 시체 밑에서 무언가 반짝이고 있습니다.");
+                    Console.WriteLine($"{foundGold}G를 발견했습니다!");
+                    Player.gold += foundGold;
+
+                    ColorChange.ColorWriteLine(12, "조금 몸이 무거워진 느낌입니다.");
+                    ColorChange.ColorWriteLine(12, $"현재 감염도 {Player.infection} / 100 \n");
+                    Player.GainInfection(10);
+                    break;
+
 
             }
+
+
         }
     }
-
 
 }

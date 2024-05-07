@@ -90,12 +90,10 @@ namespace TestRpgGame
             {
                 if (choice == item.IDX)
                 {
+                    if (item.IsTake == true) Player.ItemDefense -= item.DPStat;
+                    if (item.IsTake == false) Player.ItemDefense += item.DPStat;
                     item.IsTake = !item.IsTake;
                     itemSet = item.Set;
-                    Console.WriteLine(item.Name);
-                    Console.WriteLine(item.IsTake);
-                    Console.WriteLine(itemSet);
-                    Console.ReadLine();
                 }
             }
 
@@ -103,11 +101,8 @@ namespace TestRpgGame
             {
                 if ((choice != item.IDX) && (itemSet == item.Set) && (item.IsTake == true))
                 {
-                    Console.WriteLine(item.Name);
-                    Console.WriteLine(item.IsTake);
                     item.IsTake = !item.IsTake;
-                    Console.WriteLine(item.IsTake);
-                    Console.ReadLine();
+                    Player.ItemDefense -= item.DPStat;
                 }
             }
         }
@@ -178,7 +173,7 @@ namespace TestRpgGame
                 // 가지고 있는 아이템만 생성
                 if ((item.IsHave == true) && (item.IsTake == true))
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.Write($"  - {item.Name}");  // 이름
                     ItemSortScript.ItemSort(item.Name.Length);  // 간격 맞춤용 함수
                     Console.WriteLine($"{item.Desc}\n  부위 [{item.Set}]  | 공격력 + {item.ADStat}  | 방어력 + {item.DPStat} | \n");  // 상세 정보

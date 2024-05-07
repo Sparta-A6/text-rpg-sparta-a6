@@ -155,7 +155,7 @@ namespace TestRpgGame
                 return count - 1;
             }
 
-        public static void UseItemHaveCount(int choice) //  아이템을 다 사용했을 경우 list에서 삭제하는 함수
+        public static void UseItemHaveCount(int choice) //  아이템 사용 -1 아이템을 다 사용했을 경우 list에서 삭제하는 함수
         {
             foreach (UseItem item in UseItems)
             {

@@ -9,16 +9,17 @@ namespace TestRpgGame
 {
     public enum mapNum
     {
-        Village = 0,
+        School = 0,
         PlayerInfo = 1,
         Inventory = 2,
         Shop = 3,
-        Inn = 4,
+        Office = 4,
         Dungeon = 5,
         InvenItem = 12,
+        ItemUse = 22,
         ShopBuy = 13,
         ShopSell = 23,
-        InnRest = 14,
+        Rest = 14,
         DungeonIn = 15,
         DungeonOut = 25,
         Lookround = 6,
@@ -27,16 +28,27 @@ namespace TestRpgGame
         
     }
 
-    
+    public enum ItemKategorie
+    {
+        Weapon = 1,
+        Armor = 2,
+        Used = 3
+    }
 
     internal class Map
     {
         DefaultScript defaultScript = new DefaultScript();
         ChoiceScript choiceScript = new ChoiceScript();
-        Item item = new Item("-", "-", false, false, 0, 0, 0, 0);
-                
-        public int ScriptCount; //선택지 개수 줄이는 용도               
-        
+
+
+        WeaponItem item = new WeaponItem("-", "-", false, false, 0, 0, 0, 0);
+        DefenseItem DpItem = new DefenseItem("", "", false, false, 0, 0, 0, "", 0);
+        UseItem useItem = new UseItem("-", "-", false, 0, 0, 0, 0, 0);
+
+        public static ItemKategorie itemKategorie = ItemKategorie.Weapon;
+
+        public int ScriptCount; //선택지 개수 줄이는 용도
+
         public void makeMapScript(int choice)
         {
             Console.Clear();
@@ -49,11 +61,11 @@ namespace TestRpgGame
                 if(choice > 10) choice -= 10;
             }
             
-            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = (ConsoleColor)choice+3;
             Console.WriteLine(" "+choiceMap);
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("---------------------------------------\n");
+            Console.WriteLine("-----------------------------------------------------\n");
 
         }
 
@@ -64,7 +76,6 @@ namespace TestRpgGame
             Battle battle = new Battle(player, enemies);
             battle.StartBattle();
         }
-
 
         public void mapInfoScript(int choice) // 플레이어에게 세부 정보 제공 (맵 및 이벤트)
         {
@@ -87,35 +98,91 @@ namespace TestRpgGame
 
                 case 2: // 인벤토리
                     defaultScript.InventoryScript();
-                    item.AllItemInHaveScript(choice); // 소유한 아이템
+                    item.WpItemIsTakeScript(); // 장착한 무기 아이템
+                    DpItem.DpItemIsTakeScript(); // 장착한 장비 아이템
                     LimitLine();
                     choiceScript.InventoryScript();
                     break;
 
                 case 12: // 아이템 장착
                     defaultScript.InvenItemScript(); // 소유한 아이템
-                    ScriptCount = item.AllItemInHaveScript(choice); // 값 반환 (Case Break용)
+
+                    switch (itemKategorie)
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInHaveScript(choice); // 값 반환 (Case Break용)
+                            break; 
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInHaveScript(choice); // 값 반환 (Case Break용)
+                            break;
+
+                    }
+                    LimitLine();
+                    choiceScript.InvenItemScript();
+                    break;
+
+                case 22: // 아이템 사용
+                    defaultScript.ItemUseScript(); // 사용할 아이템
+                    ScriptCount = useItem.UseItemInHaveScript(); // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.InvenItemScript();
                     break;
 
                 case 3: // 상점
+
                     defaultScript.ShopScript();
-                    item.AllItemInShopScript(choice); // 상점 아이템
+
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            item.WpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            DpItem.DpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            useItem.UseItemInShopScript(choice);
+                            break;
+                    }
+
+                     // 상점 아이템
                     LimitLine();
                     choiceScript.ShopScript();
                     break;
 
                 case 13: // 상점 구매
                     defaultScript.ShopBuyScript();
-                    ScriptCount = item.AllItemInShopScript(choice); // 값 반환 (Case Break용)
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInShopScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            ScriptCount = useItem.UseItemInShopScript(choice);
+                            break;
+                    }
+                     // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.ShopBuyScript();
                     break;
 
                 case 23: // 상점 판매
                     defaultScript.ShopSellScript();
-                    ScriptCount = item.AllItemInHaveScript(choice); // 값 반환 (Case Break용)
+                    switch (itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                    {
+                        case ItemKategorie.Weapon:
+                            ScriptCount = item.WpItemInHaveScript(choice);
+                            break;
+                        case ItemKategorie.Armor:
+                            ScriptCount = DpItem.DpItemInHaveScript(choice);
+                            break;
+                        case ItemKategorie.Used:
+                            Console.WriteLine(" 소모 아이템은 판매할 수 없습니다.\n");
+                            break;
+                    } // 값 반환 (Case Break용)
                     LimitLine();
                     choiceScript.ShopSellScript();
                     break;
@@ -152,13 +219,15 @@ namespace TestRpgGame
 
                 case 6:  // 주변 탐색
                     defaultScript.LookAroundScript();
+                    LimitLine();
                     choiceScript.LookAroundScript();
                     break;
 
                 case 16: // 주변 탐색 - 전투시작
                     defaultScript.BattleStartScript();
-                    Console.WriteLine("---------------------------------------");
-                    Console.WriteLine("계속 진행하시려면 아무키나 입력해주세요");
+                    Console.WriteLine("-----------------------------------------------------");
+                    ColorChange.ColorWriteLine(12, "계속 진행하시려면 아무키나 입력해주세요");
+                    Console.WriteLine("-----------------------------------------------------");
                     Console.ReadLine();
                     StartBattle();
                     break;
@@ -176,18 +245,18 @@ namespace TestRpgGame
             switch (number)
             {
                 case 0:
-                    Console.WriteLine("\n---------------------------------------");
+                    Console.WriteLine("\n-----------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine(" 원하시는 행동을 입력해주세요.");
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("-----------------------------------------------------");
                     break;
                 case 1:
-                    Console.WriteLine("\n---------------------------------------");
+                    Console.WriteLine("\n-----------------------------------------------------");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(" 올바른 값을 입력해주십시오.");
                     Console.ForegroundColor = ConsoleColor.Black;
-                    Console.WriteLine("---------------------------------------");
+                    Console.WriteLine("-----------------------------------------------------");
                     break;
                 default:
                     break;
@@ -195,18 +264,10 @@ namespace TestRpgGame
         }
         void LimitLine()
         {
-            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("-----------------------------------------------------\n");
         } // 가름줄
 
-        public void ItemInList()
-        {
-            item.AllItemInShopList();
-        }
-
-        //public void Count()
-        //{
-        //    ChoiceLink.MakeScriptCount = (char)ScriptCount;
-        //}
+       
      
 
     }

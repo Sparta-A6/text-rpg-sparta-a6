@@ -33,6 +33,9 @@ namespace TestRpgGame
                 case 12:
                     map12Choice(mapNumber, isCan, playerChoice, ScriptCount);
                     break;
+                case 22:
+                    map22Choice(mapNumber, isCan, playerChoice, ScriptCount);
+                    break;
 
                 case 3:
                     map3Choice(mapNumber, isCan, playerChoice, ScriptCount);
@@ -138,7 +141,7 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1 :
+                    case 0 :
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
@@ -160,14 +163,16 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1 :
-                        //플레이어 인포
+                    case 0 :
                         MainGame.mapNum = 0;
                         break;
 
-                    case  2 :
-                        //플레이어 인포
+                    case  1 :
                         MainGame.mapNum = 12;
+                        break;
+
+                    case 2 :
+                        MainGame.mapNum = 22;
                         break;
 
                     default:
@@ -188,64 +193,59 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
+                    case 9:
+                        if (Map.itemKategorie == ItemKategorie.Weapon) Map.itemKategorie = ItemKategorie.Armor;
+                        else if (Map.itemKategorie == ItemKategorie.Armor) Map.itemKategorie = ItemKategorie.Weapon;
+                        break;
+
                     case 0:
                         //플레이어 인포
                         MainGame.mapNum = 2;
                         break;
 
-                    case 1:
-                        Console.WriteLine(ScriptCount);
-                        Console.ReadLine();
-                        if (ScriptCount >= 1)
-                            Item.ItemTakeInTrue(1);
+
+                    default:
+                        if (ScriptCount >= playerChoice)
+                        {
+                            switch (Map.itemKategorie)
+                            {
+                                case ItemKategorie.Weapon:
+                                    WeaponItem.ItemTakeInTrue(playerChoice);
+                                    break;
+                                case ItemKategorie.Armor:
+                                    DefenseItem.ItemTakeInTrue(playerChoice);
+                                    break;
+                            }
+                        }
                         else MainGame.instructionNum = 1;
                         break;
+                }
+            }
+            else
+            {
+                MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+            }
+        }
 
-                    case 2:
-                        if (ScriptCount >= 2)
-                            Item.ItemTakeInTrue(2);
-                        else MainGame.instructionNum = 1;
-                        break;
+        void map22Choice(int mapNum, bool isCan, int playerChoice, int ScriptCount)
+        {
 
-                    case 3:
-                        if (ScriptCount >= 3)
-                            Item.ItemTakeInTrue(3);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 4:
-                        if (ScriptCount >= 4)
-                            Item.ItemTakeInTrue(4);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 5:
-                        if (ScriptCount >= 5)
-                            Item.ItemTakeInTrue(5);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 6:
-                        if (ScriptCount >= 6)
-                            Item.ItemTakeInTrue(6);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 7:
-                        if (ScriptCount >= 7)
-                            Item.ItemTakeInTrue(7);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 8:
-                        if (ScriptCount>=8)
-                            Item.ItemTakeInTrue(8);
-                        else MainGame.instructionNum = 1;
+            if (isCan)
+            {
+                MainGame.instructionNum = 0;
+                switch (playerChoice)
+                {
+                    case 0:
+                        //플레이어 인포
+                        MainGame.mapNum = 2;
                         break;
 
                     default:
-                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
-                        break;
+                        if (ScriptCount >= playerChoice)
+                            UseItem.UseItemHaveCount(playerChoice);
+                        else MainGame.instructionNum = 1;
+                        break;// 지시 : 올바른 값 입력
+                        
                 }
             }
             else
@@ -261,19 +261,22 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
-                        //플레이어 인포
+                    case 0: //돌아가기
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
-                        //플레이어 인포
+                    case 1:
                         MainGame.mapNum = 13;
                         break;
 
-                    case 3:
-                        //플레이어 인포
+                    case 2:
                         MainGame.mapNum = 23;
+                        break;
+
+                    case 9:
+                        if (Map.itemKategorie == ItemKategorie.Weapon) Map.itemKategorie = ItemKategorie.Armor;
+                        else if (Map.itemKategorie == ItemKategorie.Armor) Map.itemKategorie = ItemKategorie.Used;
+                        else if (Map.itemKategorie == ItemKategorie.Used) Map.itemKategorie = ItemKategorie.Weapon;
                         break;
 
                     default:
@@ -299,56 +302,21 @@ namespace TestRpgGame
                         MainGame.mapNum = 3;
                         break;
 
-                    case 1:
-                        if(ScriptCount>=1)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 2:
-                        if (ScriptCount>=2)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 3:
-                        if (ScriptCount >= 3)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 4:
-                        if (ScriptCount >= 4)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 5:
-                        if (ScriptCount >= 5)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 6:
-                        if (ScriptCount >= 6)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 7:
-                        if (ScriptCount >= 7)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 8:
-                        if (ScriptCount >= 8)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
                     default:
-                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+                        if (ScriptCount >= playerChoice)
+                            switch (Map.itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                            {
+                                case ItemKategorie.Weapon:
+                                    WeaponItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                                case ItemKategorie.Armor:
+                                    DefenseItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                                case ItemKategorie.Used:
+                                    UseItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                            }
+                        else MainGame.instructionNum = 1;
                         break;
                 }
             }
@@ -370,57 +338,23 @@ namespace TestRpgGame
                         MainGame.mapNum = 3;
                         break;
 
-                    case 1:
-                        if ( ScriptCount >= 1)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 2:
-                        if (ScriptCount >= 2)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 3:
-                        if (ScriptCount >= 3)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 4:
-                        if (ScriptCount >= 4)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 5:
-                        if (ScriptCount >= 5)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 6:
-                        if (ScriptCount >= 6)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 7:
-                        if (ScriptCount >= 7)
-                            Item.ItemHaveInTrue(playerChoice, mapNum );
-                        else MainGame.instructionNum = 1;
-                        break;
-
-                    case 8:
-                        if (ScriptCount >= 8)
-                            Item.ItemHaveInTrue(playerChoice, mapNum);
-                        else MainGame.instructionNum = 1;
-                        break;
-
                     default:
-                        MainGame.instructionNum = 1; // 지시 : 올바른 값 입력
+                        if (ScriptCount >= playerChoice)
+                            switch (Map.itemKategorie) //만약 아이템 카테고리가 ~~이라면
+                            {
+                                case ItemKategorie.Weapon:
+                                    WeaponItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                                case ItemKategorie.Armor:
+                                    DefenseItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                                case ItemKategorie.Used:
+                                    UseItem.ItemHaveInTrue(playerChoice, mapNum);
+                                    break;
+                            }
+                        else MainGame.instructionNum = 1;
                         break;
+                        
                 }
             }
             else
@@ -436,12 +370,12 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
+                    case 0:
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
+                    case 1:
                         //플레이어 인포
                         MainGame.mapNum = 14;
                         break;
@@ -486,12 +420,12 @@ namespace TestRpgGame
                 MainGame.instructionNum = 0;
                 switch (playerChoice)
                 {
-                    case 1:
+                    case 0:
                         //플레이어 인포
                         MainGame.mapNum = 0;
                         break;
 
-                    case 2:
+                    case 1:
                         //플레이어 인포
                         MainGame.mapNum = 15;
                         break;

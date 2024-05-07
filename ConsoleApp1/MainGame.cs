@@ -9,6 +9,7 @@ namespace TestRpgGame
     internal class MainGame
     {
         Map map = new Map();
+        Excelitem excelitem = new Excelitem();
         ChoiceLink choiceLink = new ChoiceLink();
         
         
@@ -18,7 +19,6 @@ namespace TestRpgGame
                 
         public static int mapNum = 0; // 현재 있는 맵 enum번호
         public static int instructionNum = 0; // 입력 오류 확인 변수  0=입력값 정상 / 1=오류
-        
 
         public void Start()
         {
@@ -26,8 +26,10 @@ namespace TestRpgGame
             Console.Title = "텍스트 알피지 게임 : 지원빌리지에서 살아남기";
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.White;
-            map.ItemInList();
+            
+            excelitem.start();
 
+            Console.ReadLine();
 
             while (isGamePlay) // 게임 플레이중이라면 반복할 부분 
             {
